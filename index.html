@@ -52,7 +52,6 @@
             transform: scale(1.04);
             filter: brightness(1.1);
         }
-        /* Custom Scrollbars */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -76,7 +75,6 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 
-                <!-- Logo Image -->
                 <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('dashboard')">
                     <img 
                         src="https://instagram.fplu6-1.fna.fbcdn.net/v/t51.82787-19/707407197_17941252422216637_3119498348002162141_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGlj.nd3dy4xMDgwLkMzIn0%3D&_nc_ohc=TIzGMY2yJjAQ7kNvwEvFPLK&_nc_oc=AdqSwXMC9Ikqvj06_bEv7CoUyR1krScM4kyKL29--05IAq0kafuBf19xIU7ncXxPBbeFbvl7VVuBWYjjNJuiHiM4&_nc_zt=24&_nc_ht=instagram.fplu6-1.fna&_nc_gid=RzVTsvQaVQzTOM6uTz3O7A&_nc_ss=7b6a8&oh=00_AQN1-r2usXX91N9iwiAOM0a6_66_C06PmtzjlM-7LIcI9g&oe=6AD7F77B" 
@@ -86,7 +84,6 @@
                     >
                 </div>
 
-                <!-- Desktop Navigation Links -->
                 <nav class="hidden md:flex space-x-1 lg:space-x-4">
                     <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-3 py-2 text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-2">
                         <i class="fa-solid fa-chart-pie"></i> Painel SST
@@ -108,7 +105,6 @@
                     </button>
                 </nav>
 
-                <!-- Auth Buttons / User Area -->
                 <div class="hidden md:flex items-center space-x-3">
                     <div id="user-info" class="hidden flex items-center space-x-3">
                         <span class="text-xs font-semibold text-slate-200" id="user-display-name"></span>
@@ -122,7 +118,6 @@
                     </button>
                 </div>
 
-                <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center space-x-2">
                     <button id="btn-login-modal-mobile" onclick="openAuthModal()" class="p-2 rounded-md bg-safeBlue text-white text-xs font-semibold">
                         <i class="fa-solid fa-user-lock"></i>
@@ -134,7 +129,6 @@
             </div>
         </div>
 
-        <!-- Mobile Navigation Drawer -->
         <div id="mobile-menu" class="hidden md:hidden bg-slate-900 px-4 pt-2 pb-4 space-y-1 border-t border-slate-800">
             <button onclick="switchTab('dashboard')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Painel SST</button>
             <button onclick="switchTab('checklist')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Checklist de Segurança</button>
@@ -145,12 +139,10 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT CONTAINER -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        <!-- ==================== TAB 1: DASHBOARD ==================== -->
+        <!-- TAB 1: DASHBOARD -->
         <section id="tab-dashboard" class="space-y-6">
-            <!-- Hero Banner -->
             <div class="bg-gradient-to-r from-safeNavy via-slate-900 to-safeNavy rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
                 <div class="absolute right-0 top-0 bottom-0 w-1/3 opacity-10 pointer-events-none flex items-center justify-center">
                     <i class="fa-solid fa-shield-virus text-9xl"></i>
@@ -168,7 +160,6 @@
                 </div>
             </div>
 
-            <!-- Dashboard Stats Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                 <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex items-center gap-4">
                     <div class="w-12 h-12 rounded-lg bg-blue-50 text-safeCorporate flex items-center justify-center text-xl">
@@ -211,9 +202,7 @@
                 </div>
             </div>
 
-            <!-- Quick Action Cards -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Card 1 -->
                 <div class="bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col justify-between">
                     <div>
                         <div class="text-safeBlue text-2xl mb-3"><i class="fa-solid fa-square-check"></i></div>
@@ -225,7 +214,6 @@
                     </button>
                 </div>
 
-                <!-- Card 2 -->
                 <div class="bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col justify-between">
                     <div>
                         <div class="text-safeBlue text-2xl mb-3"><i class="fa-solid fa-diagram-project"></i></div>
@@ -237,7 +225,6 @@
                     </button>
                 </div>
 
-                <!-- Card 3 -->
                 <div class="bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col justify-between">
                     <div>
                         <div class="text-safeBlue text-2xl mb-3"><i class="fa-solid fa-table-cells"></i></div>
@@ -251,8 +238,7 @@
             </div>
         </section>
 
-
-        <!-- ==================== TAB 2: CHECKLIST ==================== -->
+        <!-- TAB 2: CHECKLIST -->
         <section id="tab-checklist" class="hidden space-y-6">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                 <div>
@@ -269,7 +255,6 @@
                 </div>
             </div>
 
-            <!-- Progress Bar -->
             <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-sm font-semibold text-slate-700">Progresso da Inspeção</span>
@@ -280,7 +265,6 @@
                 </div>
             </div>
 
-            <!-- Form to Add New Task -->
             <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                 <h3 class="text-lg font-bold text-safeNavy mb-4 flex items-center gap-2">
                     <i class="fa-solid fa-plus-circle text-safeBlue"></i> Adicionar Nova Tarefa de Segurança
@@ -312,7 +296,6 @@
                 </form>
             </div>
 
-            <!-- Task List Table -->
             <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
@@ -326,16 +309,13 @@
                                 <th class="p-4 text-center">Ações</th>
                             </tr>
                         </thead>
-                        <tbody id="checklist-table-body" class="divide-y divide-slate-200 text-sm">
-                            <!-- Items inserted dynamically -->
-                        </tbody>
+                        <tbody id="checklist-table-body" class="divide-y divide-slate-200 text-sm"></tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-
-        <!-- ==================== TAB 3: BOWTIE METHODOLOGY ==================== -->
+        <!-- TAB 3: BOWTIE -->
         <section id="tab-bowtie" class="hidden space-y-6">
             <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
@@ -349,11 +329,8 @@
                 </div>
             </div>
 
-            <!-- Bowtie Diagram Visual Area -->
             <div class="bg-slate-900 rounded-2xl p-6 shadow-2xl text-white overflow-x-auto">
                 <div class="min-w-[950px] grid grid-cols-5 gap-4 items-center">
-                    
-                    <!-- COLUMN 1: CAUSAS / AMEAÇAS -->
                     <div class="space-y-3">
                         <div class="flex justify-between items-center border-b border-slate-700 pb-2">
                             <span class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
@@ -361,12 +338,9 @@
                             </span>
                             <button onclick="addBowtieItem('threat')" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-plus"></i> Add</button>
                         </div>
-                        <div id="bowtie-threats-container" class="space-y-3">
-                            <!-- Threat cards -->
-                        </div>
+                        <div id="bowtie-threats-container" class="space-y-3"></div>
                     </div>
 
-                    <!-- COLUMN 2: BARREIRAS DE PREVENÇÃO -->
                     <div class="space-y-3">
                         <div class="flex justify-between items-center border-b border-slate-700 pb-2">
                             <span class="text-xs font-bold text-blue-400 uppercase tracking-wider flex items-center gap-1">
@@ -374,12 +348,9 @@
                             </span>
                             <button onclick="addBowtieItem('prev')" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-plus"></i> Add</button>
                         </div>
-                        <div id="bowtie-prev-container" class="space-y-3">
-                            <!-- Prevention cards -->
-                        </div>
+                        <div id="bowtie-prev-container" class="space-y-3"></div>
                     </div>
 
-                    <!-- COLUMN 3: EVENTO TOP (CENTRAL) -->
                     <div class="flex flex-col items-center justify-center">
                         <div class="w-full bg-gradient-to-b from-red-600 to-red-800 text-white rounded-xl p-5 shadow-2xl border-2 border-red-400 text-center relative group">
                             <i class="fa-solid fa-radiation text-3xl mb-2 text-red-200"></i>
@@ -389,7 +360,6 @@
                         </div>
                     </div>
 
-                    <!-- COLUMN 4: BARREIRAS DE MITIGAÇÃO -->
                     <div class="space-y-3">
                         <div class="flex justify-between items-center border-b border-slate-700 pb-2">
                             <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
@@ -397,12 +367,9 @@
                             </span>
                             <button onclick="addBowtieItem('mitig')" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-plus"></i> Add</button>
                         </div>
-                        <div id="bowtie-mitig-container" class="space-y-3">
-                            <!-- Mitigation cards -->
-                        </div>
+                        <div id="bowtie-mitig-container" class="space-y-3"></div>
                     </div>
 
-                    <!-- COLUMN 5: CONSEQUÊNCIAS -->
                     <div class="space-y-3">
                         <div class="flex justify-between items-center border-b border-slate-700 pb-2">
                             <span class="text-xs font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1">
@@ -410,11 +377,8 @@
                             </span>
                             <button onclick="addBowtieItem('conseq')" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-plus"></i> Add</button>
                         </div>
-                        <div id="bowtie-conseq-container" class="space-y-3">
-                            <!-- Consequence cards -->
-                        </div>
+                        <div id="bowtie-conseq-container" class="space-y-3"></div>
                     </div>
-
                 </div>
             </div>
             
@@ -424,8 +388,7 @@
             </div>
         </section>
 
-
-        <!-- ==================== TAB 4: MATRIZ DE RISCO ==================== -->
+        <!-- TAB 4: MATRIZ DE RISCO -->
         <section id="tab-matriz" class="hidden space-y-6">
             <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                 <h2 class="text-2xl font-bold text-safeNavy">Matriz de Risco 5x5 (Probabilidade x Severidade)</h2>
@@ -433,30 +396,20 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <!-- Interactive 5x5 Grid -->
                 <div class="lg:col-span-6 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                     <h3 class="text-lg font-bold text-safeNavy mb-4">Selecione na Matriz para Mapear</h3>
-                    
                     <div class="flex">
-                        <!-- Y-Axis Label -->
                         <div class="flex items-center justify-center pr-2">
                             <span class="-rotate-90 text-xs font-bold text-slate-500 uppercase tracking-widest whitespace-nowrap">Probabilidade (1-5)</span>
                         </div>
-
                         <div class="flex-1">
-                            <!-- Matrix Table -->
-                            <div class="grid grid-cols-5 gap-1.5 text-center text-xs font-bold text-white mb-2" id="matrix-grid">
-                                <!-- Cells generated dynamically -->
-                            </div>
-
-                            <!-- X-Axis Label -->
+                            <div class="grid grid-cols-5 gap-1.5 text-center text-xs font-bold text-white mb-2" id="matrix-grid"></div>
                             <div class="text-center pt-2">
                                 <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Severidade / Impacto (1-5)</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Color Legend -->
                     <div class="grid grid-cols-4 gap-2 mt-6 pt-4 border-t border-slate-200 text-center text-xs">
                         <div class="p-2 rounded bg-emerald-500 text-white font-semibold">Baixo (1-4)</div>
                         <div class="p-2 rounded bg-yellow-400 text-slate-900 font-semibold">Médio (5-9)</div>
@@ -465,7 +418,6 @@
                     </div>
                 </div>
 
-                <!-- Add Risk Form -->
                 <div class="lg:col-span-6 bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
                     <div>
                         <h3 class="text-lg font-bold text-safeNavy mb-4 flex items-center gap-2">
@@ -529,7 +481,6 @@
                 </div>
             </div>
 
-            <!-- Risk Inventory Table -->
             <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                 <div class="p-4 bg-slate-50 border-b border-slate-200 font-bold text-safeNavy text-base">
                     Inventário Geral de Riscos Mapeados
@@ -546,16 +497,13 @@
                                 <th class="p-4 text-center">Ações</th>
                             </tr>
                         </thead>
-                        <tbody id="risk-table-body" class="divide-y divide-slate-200 text-sm">
-                            <!-- Items inserted dynamically -->
-                        </tbody>
+                        <tbody id="risk-table-body" class="divide-y divide-slate-200 text-sm"></tbody>
                     </table>
                 </div>
             </div>
         </section>
 
-
-        <!-- ==================== TAB 5: GERADOR DE DDS ==================== -->
+        <!-- TAB 5: GERADOR DE DDS -->
         <section id="tab-dds" class="hidden space-y-6">
             <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                 <h2 class="text-2xl font-bold text-safeNavy">Gerador de Diálogo Diário de Segurança (DDS)</h2>
@@ -563,7 +511,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Theme Selection List -->
                 <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
                     <h3 class="font-bold text-safeNavy mb-3 text-sm uppercase tracking-wider">Selecione o Tema do DDS</h3>
                     <button onclick="selectDdsTheme('epi')" class="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-safeBlue hover:bg-sky-50 transition-all font-medium text-sm flex items-center justify-between text-slate-700">
@@ -588,7 +535,6 @@
                     </button>
                 </div>
 
-                <!-- DDS Content Display -->
                 <div class="md:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
                     <div id="dds-content-area">
                         <div class="flex items-center gap-3 border-b border-slate-200 pb-4 mb-4">
@@ -627,8 +573,7 @@
             </div>
         </section>
 
-
-        <!-- ==================== TAB 6: REGISTRO DE QUASE-ACIDENTES ==================== -->
+        <!-- TAB 6: QUASE-ACIDENTES -->
         <section id="tab-incidentes" class="hidden space-y-6">
             <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                 <h2 class="text-2xl font-bold text-safeNavy">Relato de Quase-Acidentes e Desvios</h2>
@@ -636,7 +581,6 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Report Form -->
                 <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                     <h3 class="text-lg font-bold text-safeNavy mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-bullhorn text-safeBlue"></i> Novo Relato
@@ -672,23 +616,20 @@
                     </form>
                 </div>
 
-                <!-- Feed of Incidents -->
                 <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
                     <h3 class="text-lg font-bold text-safeNavy flex items-center justify-between border-b border-slate-200 pb-3">
                         <span>Histórico de Registros</span>
                         <span id="incidents-badge" class="bg-slate-100 text-slate-700 text-xs px-2.5 py-1 rounded-full font-bold">0 Relatos</span>
                     </h3>
 
-                    <div id="incidents-feed" class="space-y-3 max-h-[500px] overflow-y-auto pr-1">
-                        <!-- Dynamic Incidents -->
-                    </div>
+                    <div id="incidents-feed" class="space-y-3 max-h-[500px] overflow-y-auto pr-1"></div>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- MODAL DE AUTENTICAÇÃO / LOGIN -->
+    <!-- MODAL AUTH -->
     <div id="auth-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
         <div class="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full mx-4 shadow-2xl relative text-slate-800">
             <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
@@ -751,16 +692,14 @@
         </div>
     </footer>
 
-    <!-- NOTIFICATION MODAL / TOAST -->
+    <!-- TOAST NOTIFICATION -->
     <div id="toast-msg" class="fixed bottom-5 right-5 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl z-50 hidden flex items-center gap-3 border border-slate-700">
         <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
         <span id="toast-text" class="text-sm font-medium">Ação realizada com sucesso!</span>
     </div>
 
-
-    <!-- ==================== JAVASCRIPT APP LOGIC ==================== -->
+    <!-- JAVASCRIPT APP LOGIC -->
     <script>
-        /* ================= SUPABASE CLIENT INTEGRATION ================= */
         const SUPABASE_URL = 'https://sepckkpkvejzlhfcxvsl.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_IsE8xKTs8ip4F18bCTUEtw_x0pmee2K';
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -768,7 +707,6 @@
         let currentUser = null;
         let isRegisterMode = false;
 
-        /* ================= STATE MANAGEMENT ================= */
         const state = {
             checklist: [
                 { id: 1, desc: 'Uso obrigatório de capacete e botas de segurança no canteiro', cat: 'EPI / EPC', resp: 'Eng. Carlos', status: 'conforme' },
@@ -806,7 +744,6 @@
             selectedMatrixPos: { prob: 3, sev: 3 }
         };
 
-        /* ================= INITIALIZATION ================= */
         window.onload = function() {
             checkUserSession();
             renderChecklist();
@@ -818,7 +755,6 @@
             updateCalculatedRiskScore();
         };
 
-        /* ================= AUTH & SUPABASE FUNCTIONS ================= */
         async function checkUserSession() {
             const { data: { session } } = await supabaseClient.auth.getSession();
             if (session) {
@@ -843,13 +779,8 @@
             }
         }
 
-        function openAuthModal() {
-            document.getElementById('auth-modal').classList.remove('hidden');
-        }
-
-        function closeAuthModal() {
-            document.getElementById('auth-modal').classList.add('hidden');
-        }
+        function openAuthModal() { document.getElementById('auth-modal').classList.remove('hidden'); }
+        function closeAuthModal() { document.getElementById('auth-modal').classList.add('hidden'); }
 
         function toggleAuthMode() {
             isRegisterMode = !isRegisterMode;
@@ -899,32 +830,35 @@
         async function loadCloudData() {
             if (!currentUser) return;
 
+            // Carregar Checklists com responsável e categoria corretos
             const { data: dbChecklists } = await supabaseClient.from('checklists').select('*');
             if (dbChecklists && dbChecklists.length > 0) {
                 state.checklist = dbChecklists.map(i => ({
                     id: i.id,
                     desc: i.item_text,
-                    cat: 'EPI / EPC',
-                    resp: 'SST',
+                    cat: i.category || 'EPI / EPC',
+                    resp: i.responsible || 'Téc. Responsável',
                     status: i.status === 'nao-conforme' ? 'nao_conforme' : i.status
                 }));
                 renderChecklist();
             }
 
+            // Carregar Matriz de Risco com medida de controle real
             const { data: dbRisk } = await supabaseClient.from('risk_matrix').select('*');
             if (dbRisk && dbRisk.length > 0) {
                 state.risks = dbRisk.map(i => ({
                     id: i.id,
-                    title: i.activity + ' - ' + i.hazard,
-                    cat: 'Acidente / Mecânico',
+                    title: i.activity,
+                    cat: i.category || i.hazard,
                     prob: i.probability,
                     sev: i.severity,
                     score: i.probability * i.severity,
-                    control: 'Medida cadastrada via nuvem'
+                    control: i.control_measure || i.hazard || 'Controle preventivo'
                 }));
                 renderRiskTable();
             }
 
+            // Carregar Quase-Acidentes com relator real
             const { data: dbNM } = await supabaseClient.from('near_misses').select('*');
             if (dbNM && dbNM.length > 0) {
                 state.incidents = dbNM.map(i => ({
@@ -932,14 +866,13 @@
                     location: i.location,
                     desc: i.description,
                     severity: i.severity,
-                    reporter: 'Nuvem',
+                    reporter: i.reporter || 'Anônimo',
                     date: 'Registrado'
                 }));
                 renderIncidents();
             }
         }
 
-        /* ================= NAVIGATION LOGIC ================= */
         function switchTab(tabId) {
             const tabs = ['dashboard', 'checklist', 'bowtie', 'matriz', 'dds', 'incidentes'];
             tabs.forEach(id => {
@@ -954,35 +887,25 @@
             if (activeSec) activeSec.classList.remove('hidden');
             if (activeNav) activeNav.classList.add('active-tab');
 
-            // Close mobile menu if open
             document.getElementById('mobile-menu').classList.add('hidden');
         }
 
         function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            document.getElementById('mobile-menu').classList.toggle('hidden');
         }
 
-        /* ================= TOAST NOTIFICATION ================= */
         function showToast(message, isError = false) {
             const toast = document.getElementById('toast-msg');
             const toastText = document.getElementById('toast-text');
             const toastIcon = document.getElementById('toast-icon');
 
             toastText.textContent = message;
-            if (isError) {
-                toastIcon.className = "fa-solid fa-circle-xmark text-red-400 text-lg";
-            } else {
-                toastIcon.className = "fa-solid fa-circle-check text-emerald-400 text-lg";
-            }
+            toastIcon.className = isError ? "fa-solid fa-circle-xmark text-red-400 text-lg" : "fa-solid fa-circle-check text-emerald-400 text-lg";
 
             toast.classList.remove('hidden');
-            setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 3000);
+            setTimeout(() => { toast.classList.add('hidden'); }, 3000);
         }
 
-        /* ================= 1. CHECKLIST LOGIC ================= */
         function renderChecklist() {
             const tbody = document.getElementById('checklist-table-body');
             tbody.innerHTML = '';
@@ -992,13 +915,9 @@
                 tr.className = "hover:bg-slate-50 transition-colors";
 
                 let statusBadge = '';
-                if (item.status === 'conforme') {
-                    statusBadge = `<span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-semibold"><i class="fa-solid fa-check mr-1"></i> Conforme</span>`;
-                } else if (item.status === 'nao_conforme') {
-                    statusBadge = `<span class="bg-red-100 text-red-800 text-xs px-2.5 py-1 rounded-full font-semibold"><i class="fa-solid fa-xmark mr-1"></i> Não Conforme</span>`;
-                } else {
-                    statusBadge = `<span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-semibold"><i class="fa-solid fa-clock mr-1"></i> Pendente</span>`;
-                }
+                if (item.status === 'conforme') statusBadge = `<span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-semibold"><i class="fa-solid fa-check mr-1"></i> Conforme</span>`;
+                else if (item.status === 'nao_conforme') statusBadge = `<span class="bg-red-100 text-red-800 text-xs px-2.5 py-1 rounded-full font-semibold"><i class="fa-solid fa-xmark mr-1"></i> Não Conforme</span>`;
+                else statusBadge = `<span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-semibold"><i class="fa-solid fa-clock mr-1"></i> Pendente</span>`;
 
                 tr.innerHTML = `
                     <td class="p-4">${statusBadge}</td>
@@ -1028,14 +947,7 @@
             const cat = document.getElementById('chk-input-cat').value;
             const resp = document.getElementById('chk-input-resp').value;
 
-            const newItem = {
-                id: Date.now(),
-                desc,
-                cat,
-                resp,
-                status: 'pendente'
-            };
-
+            const newItem = { id: Date.now(), desc, cat, resp, status: 'pendente' };
             state.checklist.push(newItem);
             renderChecklist();
             document.getElementById('add-checklist-form').reset();
@@ -1045,6 +957,8 @@
                 await supabaseClient.from('checklists').insert([{
                     user_id: currentUser.id,
                     item_text: desc,
+                    category: cat,
+                    responsible: resp,
                     status: 'pendente'
                 }]);
             }
@@ -1093,8 +1007,6 @@
             window.print();
         }
 
-
-        /* ================= 2. BOWTIE LOGIC ================= */
         function renderBowtie() {
             document.getElementById('bowtie-top-event').textContent = state.bowtie.topEvent;
 
@@ -1174,13 +1086,10 @@
             showToast("Diagrama Bowtie restaurado.");
         }
 
-
-        /* ================= 3. RISK MATRIX LOGIC ================= */
         function renderMatrixGrid() {
             const grid = document.getElementById('matrix-grid');
             grid.innerHTML = '';
 
-            // Y Probability (5 down to 1), X Severity (1 to 5)
             for (let prob = 5; prob >= 1; prob--) {
                 for (let sev = 1; sev <= 5; sev++) {
                     const score = prob * sev;
@@ -1223,16 +1132,9 @@
             let level = 'Baixo';
             let bg = 'bg-emerald-500 text-white';
 
-            if (score >= 15) {
-                level = 'Crítico';
-                bg = 'bg-red-600 text-white';
-            } else if (score >= 10) {
-                level = 'Alto';
-                bg = 'bg-orange-500 text-white';
-            } else if (score >= 5) {
-                level = 'Médio';
-                bg = 'bg-yellow-400 text-slate-900';
-            }
+            if (score >= 15) { level = 'Crítico'; bg = 'bg-red-600 text-white'; }
+            else if (score >= 10) { level = 'Alto'; bg = 'bg-orange-500 text-white'; }
+            else if (score >= 5) { level = 'Médio'; bg = 'bg-yellow-400 text-slate-900'; }
 
             badge.className = `px-3 py-1 rounded text-xs font-bold ${bg}`;
             badge.textContent = `${level} ( Score: ${score} )`;
@@ -1247,15 +1149,7 @@
             const control = document.getElementById('risk-control').value;
             const score = prob * sev;
 
-            const newRisk = {
-                id: Date.now(),
-                title,
-                cat,
-                prob,
-                sev,
-                score,
-                control
-            };
+            const newRisk = { id: Date.now(), title, cat, prob, sev, score, control };
 
             state.risks.push(newRisk);
             renderRiskTable();
@@ -1267,9 +1161,11 @@
                 await supabaseClient.from('risk_matrix').insert([{
                     user_id: currentUser.id,
                     activity: title,
+                    category: cat,
                     hazard: cat,
                     probability: prob,
-                    severity: sev
+                    severity: sev,
+                    control_measure: control
                 }]);
             }
         }
@@ -1310,74 +1206,26 @@
             showToast("Avaliação de risco removida.");
         }
 
-
-        /* ================= 4. DDS GENERATOR LOGIC ================= */
         const ddsDatabase = {
             epi: {
                 title: "Uso Correto e Conservação dos EPIs",
-                content: `
-                    <p><strong>Objetivo:</strong> Relembrar a responsabilidade individual sobre a guarda, conservação e higienização diária dos Equipamentos de Proteção Individual.</p>
-                    <p><strong>Pontos Chave para Discussão:</strong></p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>Inspecionar os EPIs antes de cada jornada de trabalho (procurar rachaduras, fivelas frouxas ou desgaste).</li>
-                        <li>Informar imediatamente ao responsável de SST sobre qualquer equipamento danificado para substituição.</li>
-                        <li>Não improvisar alterações nem utilizar EPIs sem o devido Certificado de Aprovação (CA).</li>
-                    </ul>
-                    <p class="bg-amber-50 border-l-4 border-amber-400 p-3 text-amber-900 rounded text-xs font-medium">
-                        "O EPI não evita o acidente por si só, mas minimiza enormemente as lesões. O compromisso de usá-lo é com a sua vida!"
-                    </p>
-                `
+                content: `<p><strong>Objetivo:</strong> Relembrar a responsabilidade individual sobre a guarda, conservação e higienização diária dos Equipamentos de Proteção Individual.</p>`
             },
             altura: {
                 title: "Prevenção em Trabalhos em Altura (NR-35)",
-                content: `
-                    <p><strong>Objetivo:</strong> Reforçar os critérios de segurança em atividades executadas acima de 2,00 metros do piso.</p>
-                    <p><strong>Pontos Chave para Discussão:</strong></p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>Inspeção prévia obrigatória do cinto de segurança tipo paraquedista e dos pontos de ancoragem.</li>
-                        <li>Uso obrigatório do talabarte duplo conectado a linhas de vida certificadas durante todo o deslocamento.</li>
-                        <li>Proibição expressa de trabalhos em altura sob intempéries fortes (chuva e ventania).</li>
-                    </ul>
-                    <p class="bg-red-50 border-l-4 border-red-500 p-3 text-red-900 rounded text-xs font-medium">
-                        "Na dúvida sobre a estabilidade do ponto de ancoragem, não inicie o trabalho. Consulte o Téc. de Segurança."
-                    </p>
-                `
+                content: `<p><strong>Objetivo:</strong> Reforçar os critérios de segurança em atividades executadas acima de 2,00 metros do piso.</p>`
             },
             ergonomia: {
                 title: "Ergonomia e Postura Adequada no Trabalho",
-                content: `
-                    <p><strong>Objetivo:</strong> Prevenir lesões por esforço repetitivo (LER/DORT) e dores lombares na movimentação de cargas.</p>
-                    <p><strong>Pontos Chave para Discussão:</strong></p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>Ao levantar peso do chão, dobre os joelhos e mantenha a coluna ereta; utilize a força das pernas.</li>
-                        <li>Evite torcer o tronco enquanto carrega volumes pesados.</li>
-                        <li>Faça pequenas pausas para alongamento durante tarefas repetitivas.</li>
-                    </ul>
-                `
+                content: `<p><strong>Objetivo:</strong> Prevenir lesões por esforço repetitivo (LER/DORT) e dores lombares na movimentação de cargas.</p>`
             },
             eletrica: {
                 title: "Riscos Elétricos e Bloqueio (LOTO)",
-                content: `
-                    <p><strong>Objetivo:</strong> Garantir a desenergização segura de máquinas e quadros antes de qualquer manutenção.</p>
-                    <p><strong>Pontos Chave para Discussão:</strong></p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>Somente profissionais habilitados e autorizados podem realizar intervenções elétricas.</li>
-                        <li>Sempre testar a ausência de tensão antes de iniciar os trabalhos.</li>
-                        <li>Utilizar cadeados e etiquetas de sinalização individuais nos disjuntores bloqueados.</li>
-                    </ul>
-                `
+                content: `<p><strong>Objetivo:</strong> Garantir a desenergização segura de máquinas e quadros antes de qualquer manutenção.</p>`
             },
             organizacao: {
                 title: "Casa Arrumada: 5S e Organização do Canteiro",
-                content: `
-                    <p><strong>Objetivo:</strong> Reduzir riscos de tropeços, quedas de mesmo nível e furos com pregos/ferramentas espalhadas.</p>
-                    <p><strong>Pontos Chave para Discussão:</strong></p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>Guardar ferramentas nas caixas apropriadas imediatamente após o uso.</li>
-                        <li>Manter corredores e passarelas de circulação totalmente livres de entulhos ou fios.</li>
-                        <li>Descarte imediato de sobras de materiais em caçambas identificadas.</li>
-                    </ul>
-                `
+                content: `<p><strong>Objetivo:</strong> Reduzir riscos de tropeços, quedas de mesmo nível e furos com pregos/ferramentas espalhadas.</p>`
             }
         };
 
@@ -1405,12 +1253,8 @@
             showToast("Texto do DDS copiado para a área de transferência!");
         }
 
-        function printDds() {
-            window.print();
-        }
+        function printDds() { window.print(); }
 
-
-        /* ================= 5. INCIDENTS LOGIC ================= */
         async function addIncident(e) {
             e.preventDefault();
             const location = document.getElementById('inc-location').value;
@@ -1437,7 +1281,8 @@
                     user_id: currentUser.id,
                     location,
                     description: desc,
-                    severity
+                    severity,
+                    reporter
                 }]);
             }
         }
@@ -1483,8 +1328,6 @@
             updateDashboardStats();
         }
 
-
-        /* ================= DASHBOARD SYNCHRONIZATION ================= */
         function updateDashboardStats() {
             const conformes = state.checklist.filter(i => i.status === 'conforme').length;
             document.getElementById('dash-chk-stat').textContent = `${conformes}/${state.checklist.length} OK`;
@@ -1493,7 +1336,6 @@
             document.getElementById('dash-incidents-count').textContent = `${state.incidents.length} Relatos`;
         }
 
-        /* ================= HELPER UTILS ================= */
         function escapeHtml(str) {
             return String(str)
                 .replace(/&/g, "&amp;")
