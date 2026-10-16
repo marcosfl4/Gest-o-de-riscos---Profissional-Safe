@@ -709,37 +709,37 @@
 
         const state = {
             checklist: [
-                { id: 1, desc: 'Uso obrigatório de capacete e botas de segurança no canteiro', cat: 'EPI / EPC', resp: 'Eng. Carlos', status: 'conforme' },
-                { id: 2, desc: 'Inspeção periódica das extintores de incêndio CO2 e PQS', cat: 'Proteção Contra Incêndio', resp: 'Téc. Amanda', status: 'conforme' },
-                { id: 3, desc: 'Aterramento elétrico temporário nos quadros de distribuição', cat: 'Instalações Elétricas', resp: 'Eletricista Roberto', status: 'nao_conforme' },
-                { id: 4, desc: 'Sinalização de rotas de fuga e saídas de emergência desobstruídas', cat: 'Sinalização e Emergência', resp: 'Téc. Amanda', status: 'pendente' }
+                { id: '1', desc: 'Uso obrigatório de capacete e botas de segurança no canteiro', cat: 'EPI / EPC', resp: 'Eng. Carlos', status: 'conforme' },
+                { id: '2', desc: 'Inspeção periódica das extintores de incêndio CO2 e PQS', cat: 'Proteção Contra Incêndio', resp: 'Téc. Amanda', status: 'conforme' },
+                { id: '3', desc: 'Aterramento elétrico temporário nos quadros de distribuição', cat: 'Instalações Elétricas', resp: 'Eletricista Roberto', status: 'nao_conforme' },
+                { id: '4', desc: 'Sinalização de rotas de fuga e saídas de emergência desobstruídas', cat: 'Sinalização e Emergência', resp: 'Téc. Amanda', status: 'pendente' }
             ],
             bowtie: {
                 topEvent: "Queda de Trabalhador em Altura",
                 threats: [
-                    { id: 1, text: "Falta de ponto de ancoragem adequado" },
-                    { id: 2, text: "Condições climáticas adversas (ventos fortes)" }
+                    { id: '1', text: "Falta de ponto de ancoragem adequado" },
+                    { id: '2', text: "Condições climáticas adversas (ventos fortes)" }
                 ],
                 prevention: [
-                    { id: 1, text: "Instalação de Linha de Vida testada" },
-                    { id: 2, text: "Permissão de Trabalho (PT) prévia" }
+                    { id: '1', text: "Instalação de Linha de Vida testada" },
+                    { id: '2', text: "Permissão de Trabalho (PT) prévia" }
                 ],
                 mitigation: [
-                    { id: 1, text: "Cinto Paraquedista com Talabarte Duplo" },
-                    { id: 2, text: "Equipe de Resgate em Altura apostos" }
+                    { id: '1', text: "Cinto Paraquedista com Talabarte Duplo" },
+                    { id: '2', text: "Equipe de Resgate em Altura apostos" }
                 ],
                 consequences: [
-                    { id: 1, text: "Lesões corporais graves ou fatalidade" },
-                    { id: 2, text: "Paralisação das operações e sanções legais" }
+                    { id: '1', text: "Lesões corporais graves ou fatalidade" },
+                    { id: '2', text: "Paralisação das operações e sanções legais" }
                 ]
             },
             risks: [
-                { id: 1, title: "Trabalho em andaime sem guarda-corpo", cat: "Acidente / Mecânico", prob: 4, sev: 5, score: 20, control: "Instalar guarda-corpo com rodapé padrão NR-18" },
-                { id: 2, title: "Ruído excessivo na área de prensas", cat: "Físico", prob: 3, sev: 3, score: 9, control: "Fornecimento de protetor auricular tipo concha" },
-                { id: 3, title: "Manuseio de solventes de limpeza sem luva", cat: "Químico", prob: 2, sev: 2, score: 4, control: "Adoção de luva nitrílica e óculos de proteção" }
+                { id: '1', title: "Trabalho em andaime sem guarda-corpo", cat: "Acidente / Mecânico", prob: 4, sev: 5, score: 20, control: "Instalar guarda-corpo com rodapé padrão NR-18" },
+                { id: '2', title: "Ruído excessivo na área de prensas", cat: "Físico", prob: 3, sev: 3, score: 9, control: "Fornecimento de protetor auricular tipo concha" },
+                { id: '3', title: "Manuseio de solventes de limpeza sem luva", cat: "Químico", prob: 2, sev: 2, score: 4, control: "Adoção de luva nitrílica e óculos de proteção" }
             ],
             incidents: [
-                { id: 1, location: "Almoxarifado Principal", desc: "Caixa empilhada em altura instável caiu próximo ao operador de empilhadeira.", severity: "Moderado", reporter: "Marcos Lima", date: "Hoje, 09:15" }
+                { id: '1', location: "Almoxarifado Principal", desc: "Caixa empilhada em altura instável caiu próximo ao operador de empilhadeira.", severity: "Moderado", reporter: "Marcos Lima", date: "Hoje, 09:15" }
             ],
             selectedMatrixPos: { prob: 3, sev: 3 }
         };
@@ -830,24 +830,24 @@
         async function loadCloudData() {
             if (!currentUser) return;
 
-            // Carregar Checklists com responsável e categoria corretos
+            // Carregar Checklists
             const { data: dbChecklists } = await supabaseClient.from('checklists').select('*');
             if (dbChecklists && dbChecklists.length > 0) {
                 state.checklist = dbChecklists.map(i => ({
-                    id: i.id,
+                    id: String(i.id),
                     desc: i.item_text,
                     cat: i.category || 'EPI / EPC',
-                    resp: i.responsible || 'Téc. Responsável',
+                    resp: i.responsible || 'SST',
                     status: i.status === 'nao-conforme' ? 'nao_conforme' : i.status
                 }));
                 renderChecklist();
             }
 
-            // Carregar Matriz de Risco com medida de controle real
+            // Carregar Matriz de Risco
             const { data: dbRisk } = await supabaseClient.from('risk_matrix').select('*');
             if (dbRisk && dbRisk.length > 0) {
                 state.risks = dbRisk.map(i => ({
-                    id: i.id,
+                    id: String(i.id),
                     title: i.activity,
                     cat: i.category || i.hazard,
                     prob: i.probability,
@@ -858,11 +858,11 @@
                 renderRiskTable();
             }
 
-            // Carregar Quase-Acidentes com relator real
+            // Carregar Quase-Acidentes
             const { data: dbNM } = await supabaseClient.from('near_misses').select('*');
             if (dbNM && dbNM.length > 0) {
                 state.incidents = dbNM.map(i => ({
-                    id: i.id,
+                    id: String(i.id),
                     location: i.location,
                     desc: i.description,
                     severity: i.severity,
@@ -916,7 +916,7 @@
 
                 let statusBadge = '';
                 if (item.status === 'conforme') statusBadge = `<span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-semibold"><i class="fa-solid fa-check mr-1"></i> Conforme</span>`;
-                else if (item.status === 'nao_conforme') statusBadge = `<span class="bg-red-100 text-red-800 text-xs px-2.5 py-1 rounded-full font-semibold"><i class="fa-solid fa-xmark mr-1"></i> Não Conforme</span>`;
+                else if (item.status === 'nao_conforme' || item.status === 'nao-conforme') statusBadge = `<span class="bg-red-100 text-red-800 text-xs px-2.5 py-1 rounded-full font-semibold"><i class="fa-solid fa-xmark mr-1"></i> Não Conforme</span>`;
                 else statusBadge = `<span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-semibold"><i class="fa-solid fa-clock mr-1"></i> Pendente</span>`;
 
                 tr.innerHTML = `
@@ -926,12 +926,12 @@
                     <td class="p-4 text-slate-600">${escapeHtml(item.resp)}</td>
                     <td class="p-4 text-center">
                         <div class="inline-flex rounded-lg border border-slate-200 bg-white p-1">
-                            <button onclick="setChecklistStatus(${item.id}, 'conforme')" class="px-2 py-1 text-xs font-semibold rounded ${item.status === 'conforme' ? 'bg-emerald-600 text-white' : 'text-slate-600 hover:bg-slate-100'}">OK</button>
-                            <button onclick="setChecklistStatus(${item.id}, 'nao_conforme')" class="px-2 py-1 text-xs font-semibold rounded ${item.status === 'nao_conforme' ? 'bg-red-600 text-white' : 'text-slate-600 hover:bg-slate-100'}">NOK</button>
+                            <button onclick="setChecklistStatus('${item.id}', 'conforme')" class="px-2 py-1 text-xs font-semibold rounded ${item.status === 'conforme' ? 'bg-emerald-600 text-white' : 'text-slate-600 hover:bg-slate-100'}">OK</button>
+                            <button onclick="setChecklistStatus('${item.id}', 'nao_conforme')" class="px-2 py-1 text-xs font-semibold rounded ${(item.status === 'nao_conforme' || item.status === 'nao-conforme') ? 'bg-red-600 text-white' : 'text-slate-600 hover:bg-slate-100'}">NOK</button>
                         </div>
                     </td>
                     <td class="p-4 text-center">
-                        <button onclick="deleteChecklistItem(${item.id})" class="text-slate-400 hover:text-red-600 transition-colors"><i class="fa-solid fa-trash-can"></i></button>
+                        <button onclick="deleteChecklistItem('${item.id}')" class="text-slate-400 hover:text-red-600 transition-colors"><i class="fa-solid fa-trash-can"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -947,35 +947,55 @@
             const cat = document.getElementById('chk-input-cat').value;
             const resp = document.getElementById('chk-input-resp').value;
 
-            const newItem = { id: Date.now(), desc, cat, resp, status: 'pendente' };
-            state.checklist.push(newItem);
-            renderChecklist();
-            document.getElementById('add-checklist-form').reset();
-            showToast("Nova tarefa de inspeção cadastrada!");
-
             if (currentUser) {
-                await supabaseClient.from('checklists').insert([{
+                const { data, error } = await supabaseClient.from('checklists').insert([{
                     user_id: currentUser.id,
                     item_text: desc,
                     category: cat,
                     responsible: resp,
                     status: 'pendente'
-                }]);
+                }]).select();
+
+                if (!error && data && data.length > 0) {
+                    state.checklist.push({
+                        id: String(data[0].id),
+                        desc,
+                        cat,
+                        resp,
+                        status: 'pendente'
+                    });
+                }
+            } else {
+                state.checklist.push({ id: String(Date.now()), desc, cat, resp, status: 'pendente' });
             }
+
+            renderChecklist();
+            document.getElementById('add-checklist-form').reset();
+            showToast("Nova tarefa de inspeção cadastrada!");
         }
 
-        function setChecklistStatus(id, status) {
-            const item = state.checklist.find(i => i.id === id);
+        async function setChecklistStatus(id, newStatus) {
+            const item = state.checklist.find(i => String(i.id) === String(id));
             if (item) {
-                item.status = status;
+                const targetStatus = (item.status === newStatus) ? 'pendente' : newStatus;
+                item.status = targetStatus;
                 renderChecklist();
+
+                if (currentUser) {
+                    const dbStatus = (targetStatus === 'nao_conforme') ? 'nao-conforme' : targetStatus;
+                    await supabaseClient.from('checklists').update({ status: dbStatus }).eq('id', id);
+                }
             }
         }
 
-        function deleteChecklistItem(id) {
-            state.checklist = state.checklist.filter(i => i.id !== id);
+        async function deleteChecklistItem(id) {
+            state.checklist = state.checklist.filter(i => String(i.id) !== String(id));
             renderChecklist();
             showToast("Item removido do checklist");
+
+            if (currentUser) {
+                await supabaseClient.from('checklists').delete().eq('id', id);
+            }
         }
 
         function updateChecklistProgress() {
@@ -994,9 +1014,9 @@
 
         function resetChecklist() {
             state.checklist = [
-                { id: 1, desc: 'Uso obrigatório de capacete e botas de segurança no canteiro', cat: 'EPI / EPC', resp: 'Eng. Carlos', status: 'conforme' },
-                { id: 2, desc: 'Inspeção periódica das extintores de incêndio CO2 e PQS', cat: 'Proteção Contra Incêndio', resp: 'Téc. Amanda', status: 'conforme' },
-                { id: 3, desc: 'Aterramento elétrico temporário nos quadros de distribuição', cat: 'Instalações Elétricas', resp: 'Eletricista Roberto', status: 'nao_conforme' }
+                { id: '1', desc: 'Uso obrigatório de capacete e botas de segurança no canteiro', cat: 'EPI / EPC', resp: 'Eng. Carlos', status: 'conforme' },
+                { id: '2', desc: 'Inspeção periódica das extintores de incêndio CO2 e PQS', cat: 'Proteção Contra Incêndio', resp: 'Téc. Amanda', status: 'conforme' },
+                { id: '3', desc: 'Aterramento elétrico temporário nos quadros de distribuição', cat: 'Instalações Elétricas', resp: 'Eletricista Roberto', status: 'nao_conforme' }
             ];
             renderChecklist();
             showToast("Checklist redefinido ao padrão.");
@@ -1018,7 +1038,7 @@
                     card.className = "bowtie-card bg-slate-800 border border-slate-700 p-3 rounded-lg text-xs flex justify-between items-center group";
                     card.innerHTML = `
                         <span class="leading-relaxed font-medium">${escapeHtml(item.text)}</span>
-                        <button onclick="removeBowtieItem('${type}', ${item.id})" class="text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity ml-2"><i class="fa-solid fa-xmark"></i></button>
+                        <button onclick="removeBowtieItem('${type}', '${item.id}')" class="text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity ml-2"><i class="fa-solid fa-xmark"></i></button>
                     `;
                     container.appendChild(card);
                 });
@@ -1034,7 +1054,7 @@
             const text = prompt("Informe o texto do novo item no diagrama Bowtie:");
             if (!text || text.trim() === "") return;
 
-            const newItem = { id: Date.now(), text: text.trim() };
+            const newItem = { id: String(Date.now()), text: text.trim() };
             if (type === 'threat') state.bowtie.threats.push(newItem);
             if (type === 'prev') state.bowtie.prevention.push(newItem);
             if (type === 'mitig') state.bowtie.mitigation.push(newItem);
@@ -1045,10 +1065,10 @@
         }
 
         function removeBowtieItem(type, id) {
-            if (type === 'threat') state.bowtie.threats = state.bowtie.threats.filter(i => i.id !== id);
-            if (type === 'prev') state.bowtie.prevention = state.bowtie.prevention.filter(i => i.id !== id);
-            if (type === 'mitig') state.bowtie.mitigation = state.bowtie.mitigation.filter(i => i.id !== id);
-            if (type === 'conseq') state.bowtie.consequences = state.bowtie.consequences.filter(i => i.id !== id);
+            if (type === 'threat') state.bowtie.threats = state.bowtie.threats.filter(i => String(i.id) !== String(id));
+            if (type === 'prev') state.bowtie.prevention = state.bowtie.prevention.filter(i => String(i.id) !== String(id));
+            if (type === 'mitig') state.bowtie.mitigation = state.bowtie.mitigation.filter(i => String(i.id) !== String(id));
+            if (type === 'conseq') state.bowtie.consequences = state.bowtie.consequences.filter(i => String(i.id) !== String(id));
 
             renderBowtie();
         }
@@ -1066,20 +1086,20 @@
             state.bowtie = {
                 topEvent: "Queda de Trabalhador em Altura",
                 threats: [
-                    { id: 1, text: "Falta de ponto de ancoragem adequado" },
-                    { id: 2, text: "Condições climáticas adversas (ventos)" }
+                    { id: '1', text: "Falta de ponto de ancoragem adequado" },
+                    { id: '2', text: "Condições climáticas adversas (ventos)" }
                 ],
                 prevention: [
-                    { id: 1, text: "Instalação de Linha de Vida testada" },
-                    { id: 2, text: "Permissão de Trabalho (PT) prévia" }
+                    { id: '1', text: "Instalação de Linha de Vida testada" },
+                    { id: '2', text: "Permissão de Trabalho (PT) prévia" }
                 ],
                 mitigation: [
-                    { id: 1, text: "Cinto Paraquedista com Talabarte Duplo" },
-                    { id: 2, text: "Equipe de Resgate em Altura apostos" }
+                    { id: '1', text: "Cinto Paraquedista com Talabarte Duplo" },
+                    { id: '2', text: "Equipe de Resgate em Altura apostos" }
                 ],
                 consequences: [
-                    { id: 1, text: "Lesões corporais graves ou fatalidade" },
-                    { id: 2, text: "Paralisação das operações" }
+                    { id: '1', text: "Lesões corporais graves ou fatalidade" },
+                    { id: '2', text: "Paralisação das operações" }
                 ]
             };
             renderBowtie();
@@ -1149,16 +1169,8 @@
             const control = document.getElementById('risk-control').value;
             const score = prob * sev;
 
-            const newRisk = { id: Date.now(), title, cat, prob, sev, score, control };
-
-            state.risks.push(newRisk);
-            renderRiskTable();
-            document.getElementById('risk-form').reset();
-            updateCalculatedRiskScore();
-            showToast("Risco cadastrado com sucesso!");
-
             if (currentUser) {
-                await supabaseClient.from('risk_matrix').insert([{
+                const { data, error } = await supabaseClient.from('risk_matrix').insert([{
                     user_id: currentUser.id,
                     activity: title,
                     category: cat,
@@ -1166,8 +1178,19 @@
                     probability: prob,
                     severity: sev,
                     control_measure: control
-                }]);
+                }]).select();
+
+                if (!error && data && data.length > 0) {
+                    state.risks.push({ id: String(data[0].id), title, cat, prob, sev, score, control });
+                }
+            } else {
+                state.risks.push({ id: String(Date.now()), title, cat, prob, sev, score, control });
             }
+
+            renderRiskTable();
+            document.getElementById('risk-form').reset();
+            updateCalculatedRiskScore();
+            showToast("Risco cadastrado com sucesso!");
         }
 
         function renderRiskTable() {
@@ -1191,7 +1214,7 @@
                     <td class="p-4 text-center">${levelBadge}</td>
                     <td class="p-4 text-slate-600 text-xs max-w-xs leading-relaxed">${escapeHtml(item.control)}</td>
                     <td class="p-4 text-center">
-                        <button onclick="deleteRisk(${item.id})" class="text-slate-400 hover:text-red-600 transition-colors"><i class="fa-solid fa-trash-can"></i></button>
+                        <button onclick="deleteRisk('${item.id}')" class="text-slate-400 hover:text-red-600 transition-colors"><i class="fa-solid fa-trash-can"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -1200,10 +1223,14 @@
             updateDashboardStats();
         }
 
-        function deleteRisk(id) {
-            state.risks = state.risks.filter(r => r.id !== id);
+        async function deleteRisk(id) {
+            state.risks = state.risks.filter(r => String(r.id) !== String(id));
             renderRiskTable();
             showToast("Avaliação de risco removida.");
+
+            if (currentUser) {
+                await supabaseClient.from('risk_matrix').delete().eq('id', id);
+            }
         }
 
         const ddsDatabase = {
@@ -1262,29 +1289,39 @@
             const severity = document.getElementById('inc-severity').value;
             const reporter = document.getElementById('inc-reporter').value || "Anônimo";
 
-            const newIncident = {
-                id: Date.now(),
-                location,
-                desc,
-                severity,
-                reporter,
-                date: "Hoje, " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            };
-
-            state.incidents.unshift(newIncident);
-            renderIncidents();
-            document.getElementById('incident-form').reset();
-            showToast("Quase-acidente relatado com sucesso!");
-
             if (currentUser) {
-                await supabaseClient.from('near_misses').insert([{
+                const { data, error } = await supabaseClient.from('near_misses').insert([{
                     user_id: currentUser.id,
                     location,
                     description: desc,
                     severity,
                     reporter
-                }]);
+                }]).select();
+
+                if (!error && data && data.length > 0) {
+                    state.incidents.unshift({
+                        id: String(data[0].id),
+                        location,
+                        desc,
+                        severity,
+                        reporter,
+                        date: "Hoje, " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                    });
+                }
+            } else {
+                state.incidents.unshift({
+                    id: String(Date.now()),
+                    location,
+                    desc,
+                    severity,
+                    reporter,
+                    date: "Hoje, " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                });
             }
+
+            renderIncidents();
+            document.getElementById('incident-form').reset();
+            showToast("Quase-acidente relatado com sucesso!");
         }
 
         function renderIncidents() {
