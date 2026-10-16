@@ -1,1291 +1,747 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grupo SAFE - Consultoria & Gestão | Plataforma SST</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        safeNavy: '#0F2C59',
-                        safeBlue: '#00A3E0',
-                        safeCorporate: '#1D4ED8',
-                        safeBg: '#F8FAFC',
-                        safeDark: '#0A192F',
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grupo SAFE - Consultoria & Gestão | Plataforma SST</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Supabase JS Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            safe: {
+              navy: '#0A2540',
+              blue: '#0070F3',
+              lightBlue: '#00C4EE',
+              bgLight: '#F8FAFC',
+              card: '#FFFFFF',
+              border: '#E2E8F0'
             }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          }
         }
-    </script>
-    <style>
-        .active-tab {
-            border-bottom: 3px solid #00A3E0;
-            color: #00A3E0;
-            font-weight: 700;
-        }
-        .bowtie-card {
-            transition: all 0.2s ease;
-        }
-        .bowtie-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 163, 224, 0.15);
-        }
-        .matrix-cell {
-            cursor: pointer;
-            transition: transform 0.15s ease, filter 0.15s ease;
-        }
-        .matrix-cell:hover {
-            transform: scale(1.04);
-            filter: brightness(1.1);
-        }
-        /* Custom Scrollbars */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-    </style>
+      }
+    }
+  </script>
 </head>
-<body class="bg-slate-50 font-sans text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="bg-safe-bgLight text-gray-800 font-sans flex flex-col min-h-screen">
 
-    <!-- HEADER / NAVIGATION -->
-    <header class="bg-safeNavy text-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                
-                <!-- Logo Image -->
-                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('dashboard')">
-                    <img 
-                        src="https://instagram.fplu6-1.fna.fbcdn.net/v/t51.82787-19/707407197_17941252422216637_3119498348002162141_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGlj.nd3dy4xMDgwLkMzIn0%3D&_nc_ohc=TIzGMY2yJjAQ7kNvwEvFPLK&_nc_oc=AdqSwXMC9Ikqvj06_bEv7CoUyR1krScM4kyKL29--05IAq0kafuBf19xIU7ncXxPBbeFbvl7VVuBWYjjNJuiHiM4&_nc_zt=24&_nc_ht=instagram.fplu6-1.fna&_nc_gid=RzVTsvQaVQzTOM6uTz3O7A&_nc_ss=7b6a8&oh=00_AQN1-r2usXX91N9iwiAOM0a6_66_C06PmtzjlM-7LIcI9g&oe=6AD7F77B" 
-                        alt="Grupo SAFE - Consultoria & Gestão" 
-                        class="h-12 w-auto object-contain rounded-lg shadow-sm"
-                        onerror="this.onerror=null; this.src='https://placehold.co/180x50/0F2C59/FFFFFF?text=GRUPO+SAFE';"
-                    >
-                </div>
+  <!-- TOP HEADER -->
+  <header class="bg-safe-navy text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <img src="https://instagram.fplu6-1.fna.fbcdn.net/v/t51.82787-19/707407197_17941252422216637_3119498348002162141_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=TIzGMY2yJjAQ7kNvwEvFPLK&_nc_oc=AdqSwXMC9Ikqvj06_bEv7CoUyR1krScM4kyKL29--05IAq0kafuBf19xIU7ncXxPBbeFbvl7VVuBWYjjNJuiHiM4&_nc_zt=24&_nc_ht=instagram.fplu6-1.fna&_nc_gid=RzVTsvQaVQzTOM6uTz3O7A&_nc_ss=7b6a8&oh=00_AQN1-r2usXX91N9iwiAOM0a6_66_C06PmtzjlM-7LIcI9g&oe=6AD7F77B" alt="Grupo SAFE Logo" class="h-10 rounded-lg shadow-sm">
+        <span class="text-xs bg-safe-blue/30 text-safe-lightBlue px-2.5 py-1 rounded-full font-semibold border border-safe-lightBlue/30">Plataforma SST</span>
+      </div>
 
-                <!-- Desktop Navigation Links -->
-                <nav class="hidden md:flex space-x-1 lg:space-x-4">
-                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-3 py-2 text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-2">
-                        <i class="fa-solid fa-chart-pie"></i> Painel SST
-                    </button>
-                    <button onclick="switchTab('checklist')" id="nav-checklist" class="px-3 py-2 text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-2">
-                        <i class="fa-solid fa-square-check"></i> Checklist
-                    </button>
-                    <button onclick="switchTab('bowtie')" id="nav-bowtie" class="px-3 py-2 text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-2">
-                        <i class="fa-solid fa-diagram-project"></i> Método Bowtie
-                    </button>
-                    <button onclick="switchTab('matriz')" id="nav-matriz" class="px-3 py-2 text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-2">
-                        <i class="fa-solid fa-table-cells"></i> Matriz de Risco
-                    </button>
-                    <button onclick="switchTab('dds')" id="nav-dds" class="px-3 py-2 text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-2">
-                        <i class="fa-solid fa-comments"></i> Gerador DDS
-                    </button>
-                    <button onclick="switchTab('incidentes')" id="nav-incidentes" class="px-3 py-2 text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-2">
-                        <i class="fa-solid fa-triangle-exclamation"></i> Quase-Acidentes
-                    </button>
-                </nav>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="p-2 rounded-md text-slate-300 hover:text-white hover:bg-slate-800">
-                        <i class="fa-solid fa-bars text-xl"></i>
-                    </button>
-                </div>
-            </div>
+      <!-- Auth Header Info / Buttons -->
+      <div class="flex items-center space-x-4">
+        <div id="user-info" class="hidden flex items-center space-x-3">
+          <span class="text-sm font-medium text-gray-200" id="user-display-name"></span>
+          <button onclick="handleLogout()" class="bg-red-500/20 hover:bg-red-500/30 text-red-300 px-3 py-1.5 rounded-lg text-xs font-semibold border border-red-500/30 transition">
+            <i class="fa-solid fa-right-from-bracket mr-1"></i> Sair
+          </button>
         </div>
+        <button id="btn-login-modal" onclick="openAuthModal()" class="bg-safe-blue hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center space-x-2">
+          <i class="fa-solid fa-user-lock"></i>
+          <span>Entrar / Cadastrar</span>
+        </button>
+      </div>
+    </div>
+  </header>
 
-        <!-- Mobile Navigation Drawer -->
-        <div id="mobile-menu" class="hidden md:hidden bg-slate-900 px-4 pt-2 pb-4 space-y-1 border-t border-slate-800">
-            <button onclick="switchTab('dashboard')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Painel SST</button>
-            <button onclick="switchTab('checklist')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Checklist de Segurança</button>
-            <button onclick="switchTab('bowtie')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Metodologia Bowtie</button>
-            <button onclick="switchTab('matriz')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Matriz de Risco 5x5</button>
-            <button onclick="switchTab('dds')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Gerador DDS</button>
-            <button onclick="switchTab('incidentes')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Relato de Quase-Acidentes</button>
-        </div>
-    </header>
-
-    <!-- MAIN CONTENT CONTAINER -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-        <!-- ==================== TAB 1: DASHBOARD ==================== -->
-        <section id="tab-dashboard" class="space-y-6">
-            <!-- Hero Banner -->
-            <div class="bg-gradient-to-r from-safeNavy via-slate-900 to-safeNavy rounded-2xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden">
-                <div class="absolute right-0 top-0 bottom-0 w-1/3 opacity-10 pointer-events-none flex items-center justify-center">
-                    <i class="fa-solid fa-shield-virus text-9xl"></i>
-                </div>
-                <div class="relative z-10 max-w-2xl">
-                    <span class="bg-safeBlue/20 text-safeBlue text-xs px-3 py-1 rounded-full font-semibold uppercase tracking-wider border border-safeBlue/30">
-                        Gestão Integrada de Segurança do Trabalho
-                    </span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold mt-3 tracking-tight">
-                        Segurança Preventiva & Controle Inteligente
-                    </h2>
-                    <p class="text-slate-300 mt-2 text-sm sm:text-base leading-relaxed">
-                        Bem-vindo ao portal do Grupo SAFE. Utilize as ferramentas interativas abaixo para mapear riscos, inspecionar conformidades e gerenciar a segurança da sua equipe com máxima eficácia.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Dashboard Stats Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-lg bg-blue-50 text-safeCorporate flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-list-check"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase">Checklist Atual</p>
-                        <h3 class="text-2xl font-bold text-slate-800" id="dash-chk-stat">0/0 Conformidades</h3>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-lg bg-red-50 text-red-600 flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase">Riscos Mapeados</p>
-                        <h3 class="text-2xl font-bold text-slate-800" id="dash-risk-count">3 Registrados</h3>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-diagram-project"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase">Análise Bowtie</p>
-                        <h3 class="text-2xl font-bold text-slate-800" id="dash-bowtie-stat">Ativo</h3>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl p-5 border border-slate-200 shadow-sm flex items-center gap-4">
-                    <div class="w-12 h-12 rounded-lg bg-cyan-50 text-safeBlue flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-clipboard-user"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-semibold text-slate-500 uppercase">Quase-Acidentes</p>
-                        <h3 class="text-2xl font-bold text-slate-800" id="dash-incidents-count">0 Relatados</h3>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Quick Action Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Card 1 -->
-                <div class="bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col justify-between">
-                    <div>
-                        <div class="text-safeBlue text-2xl mb-3"><i class="fa-solid fa-square-check"></i></div>
-                        <h3 class="text-lg font-bold text-safeNavy mb-2">Checklist Interativo</h3>
-                        <p class="text-slate-600 text-sm mb-4">Crie rotinas customizadas de inspeção, monitore conformidades de EPIs e instalações em tempo real.</p>
-                    </div>
-                    <button onclick="switchTab('checklist')" class="w-full bg-slate-100 hover:bg-safeNavy hover:text-white text-safeNavy font-semibold py-2 px-4 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-                        Acessar Inspeções <i class="fa-solid fa-arrow-right text-xs"></i>
-                    </button>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col justify-between">
-                    <div>
-                        <div class="text-safeBlue text-2xl mb-3"><i class="fa-solid fa-diagram-project"></i></div>
-                        <h3 class="text-lg font-bold text-safeNavy mb-2">Metodologia Bowtie</h3>
-                        <p class="text-slate-600 text-sm mb-4">Visualize e construa diagramas de causas, eventos críticos, barreiras de proteção e consequências.</p>
-                    </div>
-                    <button onclick="switchTab('bowtie')" class="w-full bg-slate-100 hover:bg-safeNavy hover:text-white text-safeNavy font-semibold py-2 px-4 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-                        Montar Diagrama <i class="fa-solid fa-arrow-right text-xs"></i>
-                    </button>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col justify-between">
-                    <div>
-                        <div class="text-safeBlue text-2xl mb-3"><i class="fa-solid fa-table-cells"></i></div>
-                        <h3 class="text-lg font-bold text-safeNavy mb-2">Matriz de Risco 5x5</h3>
-                        <p class="text-slate-600 text-sm mb-4">Avalie severidade e probabilidade de perigos com cálculo automático de níveis de criticidade.</p>
-                    </div>
-                    <button onclick="switchTab('matriz')" class="w-full bg-slate-100 hover:bg-safeNavy hover:text-white text-safeNavy font-semibold py-2 px-4 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-                        Avaliar Riscos <i class="fa-solid fa-arrow-right text-xs"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- ==================== TAB 2: CHECKLIST ==================== -->
-        <section id="tab-checklist" class="hidden space-y-6">
-            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <div>
-                    <h2 class="text-2xl font-bold text-safeNavy">Checklist de Segurança do Trabalho</h2>
-                    <p class="text-slate-600 text-sm">Personalize tarefas de inspeção, defina responsáveis e acompanhe os índices de conformidade.</p>
-                </div>
-                <div class="flex flex-wrap gap-2">
-                    <button onclick="exportChecklistReport()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition-colors">
-                        <i class="fa-solid fa-file-export"></i> Gerar Relatório
-                    </button>
-                    <button onclick="resetChecklist()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium px-4 py-2 rounded-lg text-sm flex items-center gap-2 transition-colors">
-                        <i class="fa-solid fa-rotate-right"></i> Redefinir
-                    </button>
-                </div>
-            </div>
-
-            <!-- Progress Bar -->
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-semibold text-slate-700">Progresso da Inspeção</span>
-                    <span id="chk-progress-text" class="text-sm font-bold text-safeCorporate">0% Concluído</span>
-                </div>
-                <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden">
-                    <div id="chk-progress-bar" class="bg-safeBlue h-3 rounded-full transition-all duration-300 w-0"></div>
-                </div>
-            </div>
-
-            <!-- Form to Add New Task -->
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <h3 class="text-lg font-bold text-safeNavy mb-4 flex items-center gap-2">
-                    <i class="fa-solid fa-plus-circle text-safeBlue"></i> Adicionar Nova Tarefa de Segurança
-                </h3>
-                <form id="add-checklist-form" onsubmit="addChecklistItem(event)" class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div class="md:col-span-2">
-                        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Descrição do Item / Inspeção</label>
-                        <input type="text" id="chk-input-desc" placeholder="Ex: Verificação do prazo de validade dos extintores" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-safeBlue focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Categoria</label>
-                        <select id="chk-input-cat" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-safeBlue focus:outline-none">
-                            <option value="EPI / EPC">EPI / EPC</option>
-                            <option value="Proteção Contra Incêndio">Proteção Contra Incêndio</option>
-                            <option value="Instalações Elétricas">Instalações Elétricas</option>
-                            <option value="Organização e Limpeza">Organização e Limpeza</option>
-                            <option value="Sinalização e Emergência">Sinalização e Emergência</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Responsável</label>
-                        <input type="text" id="chk-input-resp" placeholder="Ex: Tec. Silva" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-safeBlue focus:outline-none">
-                    </div>
-                    <div class="md:col-span-4 flex justify-end">
-                        <button type="submit" class="bg-safeNavy hover:bg-slate-800 text-white font-semibold px-5 py-2 rounded-lg text-sm transition-colors flex items-center gap-2">
-                            <i class="fa-solid fa-plus"></i> Inserir no Checklist
-                        </button>
-                    </div>
-                </form>
-            </div>
-
-            <!-- Task List Table -->
-            <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-700 text-xs uppercase tracking-wider">
-                                <th class="p-4">Status</th>
-                                <th class="p-4">Item de Inspeção</th>
-                                <th class="p-4">Categoria</th>
-                                <th class="p-4">Responsável</th>
-                                <th class="p-4 text-center">Conformidade</th>
-                                <th class="p-4 text-center">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="checklist-table-body" class="divide-y divide-slate-200 text-sm">
-                            <!-- Items inserted dynamically -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- ==================== TAB 3: BOWTIE METHODOLOGY ==================== -->
-        <section id="tab-bowtie" class="hidden space-y-6">
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                    <h2 class="text-2xl font-bold text-safeNavy">Metodologia Bowtie (Gravata Borboleta)</h2>
-                    <p class="text-slate-600 text-sm">Mapeamento visual e dinâmico de ameaças, controles de prevenção, evento perigoso, mitigações e consequências.</p>
-                </div>
-                <div class="flex items-center gap-2">
-                    <button onclick="resetBowtie()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium px-4 py-2 rounded-lg text-sm transition-colors">
-                        <i class="fa-solid fa-rotate-left"></i> Restaurar Exemplo
-                    </button>
-                </div>
-            </div>
-
-            <!-- Bowtie Diagram Visual Area -->
-            <div class="bg-slate-900 rounded-2xl p-6 shadow-2xl text-white overflow-x-auto">
-                <div class="min-w-[950px] grid grid-cols-5 gap-4 items-center">
-                    
-                    <!-- COLUMN 1: CAUSAS / AMEAÇAS -->
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center border-b border-slate-700 pb-2">
-                            <span class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
-                                <i class="fa-solid fa-bolt"></i> Ameaças / Causas
-                            </span>
-                            <button onclick="addBowtieItem('threat')" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-plus"></i> Add</button>
-                        </div>
-                        <div id="bowtie-threats-container" class="space-y-3">
-                            <!-- Threat cards -->
-                        </div>
-                    </div>
-
-                    <!-- COLUMN 2: BARREIRAS DE PREVENÇÃO -->
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center border-b border-slate-700 pb-2">
-                            <span class="text-xs font-bold text-blue-400 uppercase tracking-wider flex items-center gap-1">
-                                <i class="fa-solid fa-shield"></i> Prevenção
-                            </span>
-                            <button onclick="addBowtieItem('prev')" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-plus"></i> Add</button>
-                        </div>
-                        <div id="bowtie-prev-container" class="space-y-3">
-                            <!-- Prevention cards -->
-                        </div>
-                    </div>
-
-                    <!-- COLUMN 3: EVENTO TOP (CENTRAL) -->
-                    <div class="flex flex-col items-center justify-center">
-                        <div class="w-full bg-gradient-to-b from-red-600 to-red-800 text-white rounded-xl p-5 shadow-2xl border-2 border-red-400 text-center relative group">
-                            <i class="fa-solid fa-radiation text-3xl mb-2 text-red-200"></i>
-                            <span class="text-[10px] font-bold tracking-widest text-red-200 uppercase block mb-1">EVENTO CRÍTICO CENTRAL</span>
-                            <h3 id="bowtie-top-event" class="font-extrabold text-lg leading-tight cursor-pointer" onclick="editTopEvent()">Queda de Trabalhador em Altura</h3>
-                            <span class="text-[10px] text-red-200 mt-2 block">(Clique para alterar o título)</span>
-                        </div>
-                    </div>
-
-                    <!-- COLUMN 4: BARREIRAS DE MITIGAÇÃO -->
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center border-b border-slate-700 pb-2">
-                            <span class="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
-                                <i class="fa-solid fa-kit-medical"></i> Mitigação
-                            </span>
-                            <button onclick="addBowtieItem('mitig')" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-plus"></i> Add</button>
-                        </div>
-                        <div id="bowtie-mitig-container" class="space-y-3">
-                            <!-- Mitigation cards -->
-                        </div>
-                    </div>
-
-                    <!-- COLUMN 5: CONSEQUÊNCIAS -->
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center border-b border-slate-700 pb-2">
-                            <span class="text-xs font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1">
-                                <i class="fa-solid fa-skull-crossbones"></i> Consequências
-                            </span>
-                            <button onclick="addBowtieItem('conseq')" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-plus"></i> Add</button>
-                        </div>
-                        <div id="bowtie-conseq-container" class="space-y-3">
-                            <!-- Consequence cards -->
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            
-            <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-xs text-blue-900 flex items-center gap-3">
-                <i class="fa-solid fa-circle-info text-safeBlue text-lg"></i>
-                <p><strong>Como usar o Bowtie:</strong> A metodologia conecta causas diretas a consequências extremas através de um evento central. As <strong>Barreiras de Prevenção</strong> impedem o evento crítico, enquanto as <strong>Barreiras de Mitigação</strong> reduzem os impactos caso o evento ocorra.</p>
-            </div>
-        </section>
-
-
-        <!-- ==================== TAB 4: MATRIZ DE RISCO ==================== -->
-        <section id="tab-matriz" class="hidden space-y-6">
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <h2 class="text-2xl font-bold text-safeNavy">Matriz de Risco 5x5 (Probabilidade x Severidade)</h2>
-                <p class="text-slate-600 text-sm">Classificação quantitativa de riscos operacionais para priorização de planos de ação.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <!-- Interactive 5x5 Grid -->
-                <div class="lg:col-span-6 bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <h3 class="text-lg font-bold text-safeNavy mb-4">Selecione na Matriz para Mapear</h3>
-                    
-                    <div class="flex">
-                        <!-- Y-Axis Label -->
-                        <div class="flex items-center justify-center pr-2">
-                            <span class="-rotate-90 text-xs font-bold text-slate-500 uppercase tracking-widest whitespace-nowrap">Probabilidade (1-5)</span>
-                        </div>
-
-                        <div class="flex-1">
-                            <!-- Matrix Table -->
-                            <div class="grid grid-cols-5 gap-1.5 text-center text-xs font-bold text-white mb-2" id="matrix-grid">
-                                <!-- Cells generated dynamically -->
-                            </div>
-
-                            <!-- X-Axis Label -->
-                            <div class="text-center pt-2">
-                                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Severidade / Impacto (1-5)</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Color Legend -->
-                    <div class="grid grid-cols-4 gap-2 mt-6 pt-4 border-t border-slate-200 text-center text-xs">
-                        <div class="p-2 rounded bg-emerald-500 text-white font-semibold">Baixo (1-4)</div>
-                        <div class="p-2 rounded bg-yellow-400 text-slate-900 font-semibold">Médio (5-9)</div>
-                        <div class="p-2 rounded bg-orange-500 text-white font-semibold">Alto (10-14)</div>
-                        <div class="p-2 rounded bg-red-600 text-white font-semibold">Crítico (15-25)</div>
-                    </div>
-                </div>
-
-                <!-- Add Risk Form -->
-                <div class="lg:col-span-6 bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <h3 class="text-lg font-bold text-safeNavy mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Registrar Avaliação de Risco
-                        </h3>
-                        <form id="risk-form" onsubmit="addRiskItem(event)" class="space-y-4">
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Perigo / Atividade</label>
-                                <input type="text" id="risk-title" placeholder="Ex: Trabalho em altura sem cinto" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-safeBlue focus:outline-none">
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Categoria de Risco</label>
-                                <select id="risk-cat" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-safeBlue focus:outline-none">
-                                    <option value="Físico">Físico (Ruído, Vibração, Calores)</option>
-                                    <option value="Químico">Químico (Poeiras, Vapores, Gases)</option>
-                                    <option value="Biológico">Biológico (Bactérias, Vírus)</option>
-                                    <option value="Ergonômico">Ergonômico (Postura, Esforço)</option>
-                                    <option value="Acidente / Mecânico">Acidente / Mecânico (Quedas, Choques)</option>
-                                </select>
-                            </div>
-
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Probabilidade (1 a 5)</label>
-                                    <select id="risk-prob" onchange="updateCalculatedRiskScore()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-safeBlue focus:outline-none">
-                                        <option value="1">1 - Muito Rara</option>
-                                        <option value="2">2 - Improvável</option>
-                                        <option value="3">3 - Possível</option>
-                                        <option value="4">4 - Provável</option>
-                                        <option value="5">5 - Frequente</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Severidade (1 a 5)</label>
-                                    <select id="risk-sev" onchange="updateCalculatedRiskScore()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-safeBlue focus:outline-none">
-                                        <option value="1">1 - Insignificante</option>
-                                        <option value="2">2 - Menor</option>
-                                        <option value="3">3 - Moderada</option>
-                                        <option value="4">4 - Crítica</option>
-                                        <option value="5">5 - Catastrófica</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Medida de Controle Recomendada</label>
-                                <input type="text" id="risk-control" placeholder="Ex: Instalação de linha de vida e treinamento NR-35" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-safeBlue focus:outline-none">
-                            </div>
-
-                            <div class="p-3 bg-slate-100 rounded-lg flex items-center justify-between">
-                                <span class="text-xs font-semibold text-slate-600 uppercase">Classificação de Gravidade:</span>
-                                <span id="risk-score-badge" class="px-3 py-1 rounded text-xs font-bold bg-emerald-500 text-white">Baixo ( Score: 1 )</span>
-                            </div>
-
-                            <button type="submit" class="w-full bg-safeCorporate hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-plus-square"></i> Registrar na Tabela
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Risk Inventory Table -->
-            <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-                <div class="p-4 bg-slate-50 border-b border-slate-200 font-bold text-safeNavy text-base">
-                    Inventário Geral de Riscos Mapeados
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-slate-100 border-b border-slate-200 text-slate-700 text-xs uppercase tracking-wider">
-                                <th class="p-4">Perigo/Atividade</th>
-                                <th class="p-4">Categoria</th>
-                                <th class="p-4 text-center">Prob. x Sev.</th>
-                                <th class="p-4 text-center">Nível de Risco</th>
-                                <th class="p-4">Medidas de Controle</th>
-                                <th class="p-4 text-center">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody id="risk-table-body" class="divide-y divide-slate-200 text-sm">
-                            <!-- Items inserted dynamically -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- ==================== TAB 5: GERADOR DE DDS ==================== -->
-        <section id="tab-dds" class="hidden space-y-6">
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <h2 class="text-2xl font-bold text-safeNavy">Gerador de Diálogo Diário de Segurança (DDS)</h2>
-                <p class="text-slate-600 text-sm">Gere tópicos rápidos e orientações para reuniões matinais de conscientização da equipe.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Theme Selection List -->
-                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-2">
-                    <h3 class="font-bold text-safeNavy mb-3 text-sm uppercase tracking-wider">Selecione o Tema do DDS</h3>
-                    <button onclick="selectDdsTheme('epi')" class="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-safeBlue hover:bg-sky-50 transition-all font-medium text-sm flex items-center justify-between text-slate-700">
-                        <span><i class="fa-solid fa-hard-hat text-amber-500 mr-2"></i> Importância do Uso do EPI</span>
-                        <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
-                    </button>
-                    <button onclick="selectDdsTheme('altura')" class="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-safeBlue hover:bg-sky-50 transition-all font-medium text-sm flex items-center justify-between text-slate-700">
-                        <span><i class="fa-solid fa-person-falling-burst text-red-500 mr-2"></i> Prevenção em Altura (NR-35)</span>
-                        <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
-                    </button>
-                    <button onclick="selectDdsTheme('ergonomia')" class="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-safeBlue hover:bg-sky-50 transition-all font-medium text-sm flex items-center justify-between text-slate-700">
-                        <span><i class="fa-solid fa-child text-emerald-500 mr-2"></i> Ergonomia e Postura de Trabalho</span>
-                        <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
-                    </button>
-                    <button onclick="selectDdsTheme('eletrica')" class="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-safeBlue hover:bg-sky-50 transition-all font-medium text-sm flex items-center justify-between text-slate-700">
-                        <span><i class="fa-solid fa-bolt text-yellow-500 mr-2"></i> Riscos Eletricos no Canteiro</span>
-                        <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
-                    </button>
-                    <button onclick="selectDdsTheme('organizacao')" class="w-full text-left px-4 py-3 rounded-lg border border-slate-200 hover:border-safeBlue hover:bg-sky-50 transition-all font-medium text-sm flex items-center justify-between text-slate-700">
-                        <span><i class="fa-solid fa-broom text-purple-500 mr-2"></i> Casa Arrumada: 5S na Prática</span>
-                        <i class="fa-solid fa-chevron-right text-xs text-slate-400"></i>
-                    </button>
-                </div>
-
-                <!-- DDS Content Display -->
-                <div class="md:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
-                    <div id="dds-content-area">
-                        <div class="flex items-center gap-3 border-b border-slate-200 pb-4 mb-4">
-                            <span class="w-10 h-10 rounded-full bg-blue-100 text-safeCorporate flex items-center justify-center font-bold text-lg">
-                                <i class="fa-solid fa-comments"></i>
-                            </span>
-                            <div>
-                                <h3 id="dds-title" class="text-xl font-bold text-safeNavy">Uso Correto e Conservação dos EPIs</h3>
-                                <p class="text-xs text-slate-500">Estimado em 5 a 10 minutos de conversa com a equipe</p>
-                            </div>
-                        </div>
-
-                        <div id="dds-text" class="prose prose-slate text-sm space-y-3 text-slate-700">
-                            <p><strong>Objetivo:</strong> Relembrar a responsabilidade individual sobre a guarda, conservação e higienização diária dos Equipamentos de Proteção Individual.</p>
-                            <p><strong>Pontos Chave para Discussão:</strong></p>
-                            <ul class="list-disc pl-5 space-y-1">
-                                <li>Inspecionar os EPIs antes de cada jornada de trabalho (procurar rachaduras, fivelas frouxas ou desgaste).</li>
-                                <li>Informar imediatamente ao responsável de SST sobre qualquer equipamento danificado para substituição.</li>
-                                <li>Não improvisar alterações nem utilizar EPIs sem o devido Certificado de Aprovação (CA).</li>
-                            </ul>
-                            <p class="bg-amber-50 border-l-4 border-amber-400 p-3 text-amber-900 rounded text-xs font-medium">
-                                "O EPI não evita o acidente por si só, mas minimiza enormemente as lesões. O compromisso de usá-lo é com a sua vida!"
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="pt-6 border-t border-slate-200 flex justify-end gap-3">
-                        <button onclick="copyDdsText()" class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold px-4 py-2 rounded-lg text-sm transition-colors flex items-center gap-2">
-                            <i class="fa-solid fa-copy"></i> Copiar Texto
-                        </button>
-                        <button onclick="printDds()" class="bg-safeNavy hover:bg-slate-800 text-white font-semibold px-4 py-2 rounded-lg text-sm transition-colors flex items-center gap-2">
-                            <i class="fa-solid fa-print"></i> Imprimir Roteiro
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- ==================== TAB 6: REGISTRO DE QUASE-ACIDENTES ==================== -->
-        <section id="tab-incidentes" class="hidden space-y-6">
-            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                <h2 class="text-2xl font-bold text-safeNavy">Relato de Quase-Acidentes e Desvios</h2>
-                <p class="text-slate-600 text-sm">Canal aberto para notificação voluntária de situações de risco observadas no ambiente de trabalho.</p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Report Form -->
-                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-                    <h3 class="text-lg font-bold text-safeNavy mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-bullhorn text-safeBlue"></i> Novo Relato
-                    </h3>
-                    <form id="incident-form" onsubmit="addIncident(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Local / Setor</label>
-                            <input type="text" id="inc-location" placeholder="Ex: Galpão de Armazenamento - Setor B" required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-safeBlue focus:outline-none">
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Descrição do Ocorrido / Desvio</label>
-                            <textarea id="inc-desc" rows="3" placeholder="Descreva o quase-acidente em detalhes..." required class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-safeBlue focus:outline-none"></textarea>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Nível Potencial de Gravidade</label>
-                            <select id="inc-severity" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-safeBlue focus:outline-none">
-                                <option value="Leve">Potencial Leve</option>
-                                <option value="Moderado">Potencial Moderado</option>
-                                <option value="Grave">Potencial Grave / Crítico</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Relator (Opcional)</label>
-                            <input type="text" id="inc-reporter" placeholder="Anônimo ou Seu Nome" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-safeBlue focus:outline-none">
-                        </div>
-
-                        <button type="submit" class="w-full bg-safeBlue hover:bg-sky-600 text-white font-bold py-2.5 px-4 rounded-lg text-sm transition-colors flex items-center justify-center gap-2 shadow-sm">
-                            <i class="fa-solid fa-paper-plane"></i> Enviar Relato de Segurança
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Feed of Incidents -->
-                <div class="lg:col-span-2 bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-4">
-                    <h3 class="text-lg font-bold text-safeNavy flex items-center justify-between border-b border-slate-200 pb-3">
-                        <span>Histórico de Registros</span>
-                        <span id="incidents-badge" class="bg-slate-100 text-slate-700 text-xs px-2.5 py-1 rounded-full font-bold">0 Relatos</span>
-                    </h3>
-
-                    <div id="incidents-feed" class="space-y-3 max-h-[500px] overflow-y-auto pr-1">
-                        <!-- Dynamic Incidents -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-safeNavy text-slate-300 mt-auto border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="flex items-center space-x-3">
-                    <img 
-                        src="https://instagram.fplu6-1.fna.fbcdn.net/v/t51.82787-19/707407197_17941252422216637_3119498348002162141_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGlj.nd3dy4xMDgwLkMzIn0%3D&_nc_ohc=TIzGMY2yJjAQ7kNvwEvFPLK&_nc_oc=AdqSwXMC9Ikqvj06_bEv7CoUyR1krScM4kyKL29--05IAq0kafuBf19xIU7ncXxPBbeFbvl7VVuBWYjjNJuiHiM4&_nc_zt=24&_nc_ht=instagram.fplu6-1.fna&_nc_gid=RzVTsvQaVQzTOM6uTz3O7A&_nc_ss=7b6a8&oh=00_AQN1-r2usXX91N9iwiAOM0a6_66_C06PmtzjlM-7LIcI9g&oe=6AD7F77B" 
-                        alt="Grupo SAFE" 
-                        class="h-10 w-auto object-contain rounded-md"
-                        onerror="this.onerror=null; this.src='https://placehold.co/150x40/0F2C59/FFFFFF?text=GRUPO+SAFE';"
-                    >
-                    <div>
-                        <p class="text-white font-bold text-sm">Grupo SAFE - Consultoria & Gestão</p>
-                        <p class="text-xs text-slate-400">Soluções Inteligentes em Saúde e Segurança do Trabalho</p>
-                    </div>
-                </div>
-                <div class="text-xs text-slate-400 text-center md:text-right">
-                    <p>&copy; Grupo SAFE. Todos os direitos reservados.</p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- NOTIFICATION MODAL / TOAST -->
-    <div id="toast-msg" class="fixed bottom-5 right-5 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-2xl z-50 hidden flex items-center gap-3 border border-slate-700">
-        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
-        <span id="toast-text" class="text-sm font-medium">Ação realizada com sucesso!</span>
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+    
+    <!-- BANNER BOAS VINDAS -->
+    <div class="bg-gradient-to-r from-safe-navy to-blue-900 text-white rounded-2xl p-6 sm:p-8 mb-8 shadow-xl relative overflow-hidden">
+      <div class="relative z-10">
+        <h1 class="text-2xl sm:text-3xl font-bold mb-2">Painel de Gestão de Riscos & SST</h1>
+        <p class="text-gray-300 max-w-2xl text-sm sm:text-base">Soluções inteligentes e dinâmicas para controle, mitigação e monitoramento diário da segurança no ambiente de trabalho.</p>
+      </div>
+      <div class="absolute -right-10 -bottom-10 opacity-10 text-white text-9xl">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
     </div>
 
+    <!-- ABAS DE NAVEGAÇÃO DAS FERRAMENTAS -->
+    <div class="flex flex-wrap gap-2 border-b border-gray-200 mb-8 pb-2">
+      <button onclick="switchTab('checklist')" id="tab-checklist" class="tab-btn active-tab px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center space-x-2 transition">
+        <i class="fa-solid fa-list-check"></i> <span>Checklist Personalizável</span>
+      </button>
+      <button onclick="switchTab('bowtie')" id="tab-bowtie" class="tab-btn inactive-tab px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center space-x-2 transition">
+        <i class="fa-solid fa-diagram-project"></i> <span>Metodologia Bowtie</span>
+      </button>
+      <button onclick="switchTab('matriz')" id="tab-matriz" class="tab-btn inactive-tab px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center space-x-2 transition">
+        <i class="fa-solid fa-table-cells-large"></i> <span>Matriz de Risco (5x5)</span>
+      </button>
+      <button onclick="switchTab('dds')" id="tab-dds" class="tab-btn inactive-tab px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center space-x-2 transition">
+        <i class="fa-solid fa-comments"></i> <span>Gerador de DDS</span>
+      </button>
+      <button onclick="switchTab('quase-acidente')" id="tab-quase-acidente" class="tab-btn inactive-tab px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center space-x-2 transition">
+        <i class="fa-solid fa-triangle-exclamation"></i> <span>Relato de Quase-Acidente</span>
+      </button>
+    </div>
 
-    <!-- ==================== JAVASCRIPT APP LOGIC ==================== -->
-    <script>
-        /* ================= STATE MANAGEMENT ================= */
-        const state = {
-            checklist: [
-                { id: 1, desc: 'Uso obrigatório de capacete e botas de segurança no canteiro', cat: 'EPI / EPC', resp: 'Eng. Carlos', status: 'conforme' },
-                { id: 2, desc: 'Inspeção periódica das extintores de incêndio CO2 e PQS', cat: 'Proteção Contra Incêndio', resp: 'Téc. Amanda', status: 'conforme' },
-                { id: 3, desc: 'Aterramento elétrico temporário nos quadros de distribuição', cat: 'Instalações Elétricas', resp: 'Eletricista Roberto', status: 'nao_conforme' },
-                { id: 4, desc: 'Sinalização de rotas de fuga e saídas de emergência desobstruídas', cat: 'Sinalização e Emergência', resp: 'Téc. Amanda', status: 'pendente' }
-            ],
-            bowtie: {
-                topEvent: "Queda de Trabalhador em Altura",
-                threats: [
-                    { id: 1, text: "Falta de ponto de ancoragem adequado" },
-                    { id: 2, text: "Condições climáticas adversas (ventos fortes)" }
-                ],
-                prevention: [
-                    { id: 1, text: "Instalação de Linha de Vida testada" },
-                    { id: 2, text: "Permissão de Trabalho (PT) prévia" }
-                ],
-                mitigation: [
-                    { id: 1, text: "Cinto Paraquedista com Talabarte Duplo" },
-                    { id: 2, text: "Equipe de Resgate em Altura apostos" }
-                ],
-                consequences: [
-                    { id: 1, text: "Lesões corporais graves ou fatalidade" },
-                    { id: 2, text: "Paralisação das operações e sanções legais" }
-                ]
-            },
-            risks: [
-                { id: 1, title: "Trabalho em andaime sem guarda-corpo", cat: "Acidente / Mecânico", prob: 4, sev: 5, score: 20, control: "Instalar guarda-corpo com rodapé padrão NR-18" },
-                { id: 2, title: "Ruído excessivo na área de prensas", cat: "Físico", prob: 3, sev: 3, score: 9, control: "Fornecimento de protetor auricular tipo concha" },
-                { id: 3, title: "Manuseio de solventes de limpeza sem luva", cat: "Químico", prob: 2, sev: 2, score: 4, control: "Adoção de luva nitrílica e óculos de proteção" }
-            ],
-            incidents: [
-                { id: 1, location: "Almoxarifado Principal", desc: "Caixa empilhada em altura instável caiu próximo ao operador de empilhadeira.", severity: "Moderado", reporter: "Marcos Lima", date: "Hoje, 09:15" }
-            ],
-            selectedMatrixPos: { prob: 3, sev: 3 }
-        };
+    <!-- CONTEÚDO DAS FERRAMENTAS -->
 
-        /* ================= INITIALIZATION ================= */
-        window.onload = function() {
-            renderChecklist();
-            renderBowtie();
-            renderMatrixGrid();
-            renderRiskTable();
-            renderIncidents();
-            updateDashboardStats();
-            updateCalculatedRiskScore();
-        };
+    <!-- 1. CHECKLIST -->
+    <section id="content-checklist" class="tab-content">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-safe-border">
+          <div class="flex justify-between items-center mb-6">
+            <h2 class="text-lg font-bold text-safe-navy flex items-center space-x-2">
+              <i class="fa-solid fa-clipboard-check text-safe-blue"></i>
+              <span>Tarefas e Passo a Passo de Segurança</span>
+            </h2>
+            <span id="checklist-progress" class="text-xs bg-blue-50 text-safe-blue px-3 py-1 rounded-full font-bold">0% Concluído</span>
+          </div>
 
-        /* ================= NAVIGATION LOGIC ================= */
-        function switchTab(tabId) {
-            const tabs = ['dashboard', 'checklist', 'bowtie', 'matriz', 'dds', 'incidentes'];
-            tabs.forEach(id => {
-                const sec = document.getElementById(`tab-${id}`);
-                const nav = document.getElementById(`nav-${id}`);
-                if (sec) sec.classList.add('hidden');
-                if (nav) nav.classList.remove('active-tab');
-            });
+          <div class="flex space-x-2 mb-4">
+            <input type="text" id="new-item-input" placeholder="Nova tarefa de segurança..." class="flex-1 border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-safe-blue">
+            <button onclick="addChecklistItem()" class="bg-safe-blue hover:bg-blue-600 text-white px-5 py-2.5 rounded-xl text-sm font-semibold transition">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
 
-            const activeSec = document.getElementById(`tab-${tabId}`);
-            const activeNav = document.getElementById(`nav-${tabId}`);
-            if (activeSec) activeSec.classList.remove('hidden');
-            if (activeNav) activeNav.classList.add('active-tab');
+          <div id="checklist-items" class="space-y-3"></div>
+        </div>
 
-            // Close mobile menu if open
-            document.getElementById('mobile-menu').classList.add('hidden');
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-safe-border flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-safe-navy mb-4">Resumo da Inspeção</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-gray-600">Conformes</span>
+                <span id="count-conforme" class="font-bold text-green-600">0</span>
+              </div>
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-gray-600">Não Conformes</span>
+                <span id="count-nao-conforme" class="font-bold text-red-600">0</span>
+              </div>
+              <div class="flex justify-between items-center text-sm">
+                <span class="text-gray-600">Pendentes</span>
+                <span id="count-pendente" class="font-bold text-yellow-600">0</span>
+              </div>
+            </div>
+          </div>
+          <button onclick="clearChecklist()" class="w-full mt-6 bg-gray-100 hover:bg-gray-200 text-gray-700 py-2.5 rounded-xl text-xs font-semibold transition">
+            Limpar Lista
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. BOWTIE -->
+    <section id="content-bowtie" class="tab-content hidden">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-safe-border mb-6">
+        <h2 class="text-lg font-bold text-safe-navy mb-4">Diagrama Bowtie Interativo</h2>
+        <div class="mb-6 bg-blue-50/50 p-4 rounded-xl border border-blue-100 flex items-center justify-between">
+          <div>
+            <label class="text-xs font-bold text-safe-navy uppercase tracking-wider block mb-1">Evento Central (Perigo / Incidente Topo)</label>
+            <input type="text" id="bowtie-central-event" value="Trabalho em Altura - Queda com Desnível" class="bg-white border border-gray-300 rounded-lg px-3 py-1.5 text-sm font-semibold text-safe-navy w-full sm:w-96 focus:outline-none focus:border-safe-blue" onchange="saveBowtieData()">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+          <!-- CAUSAS -->
+          <div class="bg-red-50/40 p-4 rounded-xl border border-red-100">
+            <h3 class="font-bold text-red-800 text-xs uppercase mb-3 flex items-center justify-between">
+              <span>Causas</span>
+              <button onclick="addBowtieItem('cause')" class="text-red-600 hover:text-red-800"><i class="fa-solid fa-plus-circle"></i></button>
+            </h3>
+            <div id="bowtie-causes" class="space-y-2"></div>
+          </div>
+
+          <!-- BARREIRAS PREVENTIVAS -->
+          <div class="bg-yellow-50/40 p-4 rounded-xl border border-yellow-100">
+            <h3 class="font-bold text-yellow-800 text-xs uppercase mb-3 flex items-center justify-between">
+              <span>Prevenção</span>
+              <button onclick="addBowtieItem('preventive')" class="text-yellow-600 hover:text-yellow-800"><i class="fa-solid fa-plus-circle"></i></button>
+            </h3>
+            <div id="bowtie-preventive" class="space-y-2"></div>
+          </div>
+
+          <!-- EVENTO CENTRAL -->
+          <div class="bg-safe-navy text-white p-4 rounded-xl flex flex-col items-center justify-center text-center shadow-lg">
+            <i class="fa-solid fa-triangle-exclamation text-safe-lightBlue text-2xl mb-2"></i>
+            <span class="text-xs font-bold uppercase text-gray-300">Evento Central</span>
+            <p id="bowtie-center-text" class="text-sm font-bold mt-1">Trabalho em Altura</p>
+          </div>
+
+          <!-- BARREIRAS MITIGATIVAS -->
+          <div class="bg-blue-50/40 p-4 rounded-xl border border-blue-100">
+            <h3 class="font-bold text-blue-800 text-xs uppercase mb-3 flex items-center justify-between">
+              <span>Mitigação</span>
+              <button onclick="addBowtieItem('mitigative')" class="text-blue-600 hover:text-blue-800"><i class="fa-solid fa-plus-circle"></i></button>
+            </h3>
+            <div id="bowtie-mitigative" class="space-y-2"></div>
+          </div>
+
+          <!-- CONSEQUÊNCIAS -->
+          <div class="bg-purple-50/40 p-4 rounded-xl border border-purple-100">
+            <h3 class="font-bold text-purple-800 text-xs uppercase mb-3 flex items-center justify-between">
+              <span>Consequências</span>
+              <button onclick="addBowtieItem('consequence')" class="text-purple-600 hover:text-purple-800"><i class="fa-solid fa-plus-circle"></i></button>
+            </h3>
+            <div id="bowtie-consequences" class="space-y-2"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. MATRIZ DE RISCO -->
+    <section id="content-matriz" class="tab-content hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-safe-border">
+          <h2 class="text-lg font-bold text-safe-navy mb-4">Calculadora de Risco</h2>
+          <form id="risk-form" onsubmit="addRiskItem(event)" class="space-y-4">
+            <div>
+              <label class="text-xs font-semibold text-gray-600 block mb-1">Atividade/Setor</label>
+              <input type="text" id="risk-activity" required placeholder="Ex: Manutenção Elétrica" class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-safe-blue">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-gray-600 block mb-1">Perigo Identificado</label>
+              <input type="text" id="risk-hazard" required placeholder="Ex: Choque Elétrico" class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-safe-blue">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs font-semibold text-gray-600 block mb-1">Probabilidade (1 a 5)</label>
+                <select id="risk-prob" class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-safe-blue">
+                  <option value="1">1 - Muito Baixa</option>
+                  <option value="2">2 - Baixa</option>
+                  <option value="3">3 - Média</option>
+                  <option value="4">4 - Alta</option>
+                  <option value="5">5 - Muito Alta</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-xs font-semibold text-gray-600 block mb-1">Severidade (1 a 5)</label>
+                <select id="risk-sev" class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-safe-blue">
+                  <option value="1">1 - Insignificante</option>
+                  <option value="2">2 - Menor</option>
+                  <option value="3">3 - Moderada</option>
+                  <option value="4">4 - Maior</option>
+                  <option value="5">5 - Catastrófica</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="w-full bg-safe-blue hover:bg-blue-600 text-white font-semibold py-2.5 rounded-xl text-sm transition">
+              Calcular & Registrar
+            </button>
+          </form>
+        </div>
+
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-safe-border">
+          <h2 class="text-lg font-bold text-safe-navy mb-4">Inventário de Riscos Cadastrados</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-gray-50 text-gray-600 text-xs font-semibold uppercase">
+                <tr>
+                  <th class="p-3">Atividade</th>
+                  <th class="p-3">Perigo</th>
+                  <th class="p-3 text-center">P x S</th>
+                  <th class="p-3 text-center">Nível de Risco</th>
+                  <th class="p-3 text-center">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="risk-table-body" class="divide-y divide-gray-100"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. GERADOR DE DDS -->
+    <section id="content-dds" class="tab-content hidden">
+      <div class="bg-white rounded-2xl p-6 shadow-sm border border-safe-border">
+        <h2 class="text-lg font-bold text-safe-navy mb-4">Diálogo Diário de Segurança (DDS)</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <button onclick="loadDDS('epi')" class="p-4 border border-gray-200 rounded-xl text-left hover:border-safe-blue transition bg-gray-50/50">
+            <i class="fa-solid fa-hard-hat text-safe-blue text-xl mb-2"></i>
+            <h3 class="font-bold text-safe-navy text-sm">Uso Correto de EPIs</h3>
+            <p class="text-xs text-gray-500 mt-1">Conscientização e conservação de equipamentos.</p>
+          </button>
+          <button onclick="loadDDS('altura')" class="p-4 border border-gray-200 rounded-xl text-left hover:border-safe-blue transition bg-gray-50/50">
+            <i class="fa-solid fa-person-falling text-safe-blue text-xl mb-2"></i>
+            <h3 class="font-bold text-safe-navy text-sm">Trabalho em Altura</h3>
+            <p class="text-xs text-gray-500 mt-1">Inspeção prévia de cintos e pontos de ancoragem.</p>
+          </button>
+          <button onclick="loadDDS('ergonomia')" class="p-4 border border-gray-200 rounded-xl text-left hover:border-safe-blue transition bg-gray-50/50">
+            <i class="fa-solid fa-child-reaching text-safe-blue text-xl mb-2"></i>
+            <h3 class="font-bold text-safe-navy text-sm">Ergonomia no Trabalho</h3>
+            <p class="text-xs text-gray-500 mt-1">Postura correta e pausas ativas durante a jornada.</p>
+          </button>
+        </div>
+
+        <div id="dds-display" class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+          <h3 id="dds-title" class="font-bold text-safe-navy mb-2">Selecione um tema acima</h3>
+          <p id="dds-text" class="text-sm text-gray-600">O conteúdo completo do Diálogo Diário de Segurança selecionado aparecerá nesta área para leitura ou impressão.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. QUASE-ACIDENTE -->
+    <section id="content-quase-acidente" class="tab-content hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl p-6 shadow-sm border border-safe-border">
+          <h2 class="text-lg font-bold text-safe-navy mb-4">Relatar Quase-Acidente</h2>
+          <form id="near-miss-form" onsubmit="addNearMiss(event)" class="space-y-4">
+            <div>
+              <label class="text-xs font-semibold text-gray-600 block mb-1">Local / Setor</label>
+              <input type="text" id="nm-location" required placeholder="Ex: Almoxarifado central" class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-safe-blue">
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-gray-600 block mb-1">Descrição do Ocorrido</label>
+              <textarea id="nm-description" required placeholder="Descreva em detalhes o que quase gerou um acidente..." class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-safe-blue h-24"></textarea>
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-gray-600 block mb-1">Potencial de Severidade</label>
+              <select id="nm-severity" class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-safe-blue">
+                <option value="Baixo">Baixo</option>
+                <option value="Médio">Médio</option>
+                <option value="Alto">Alto</option>
+                <option value="Crítico">Crítico</option>
+              </select>
+            </div>
+            <button type="submit" class="w-full bg-safe-blue hover:bg-blue-600 text-white font-semibold py-2.5 rounded-xl text-sm transition">
+              Enviar Notificação
+            </button>
+          </form>
+        </div>
+
+        <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-safe-border">
+          <h2 class="text-lg font-bold text-safe-navy mb-4">Histórico de Relatos de Incidentes</h2>
+          <div id="near-miss-list" class="space-y-3"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL DE AUTENTICAÇÃO / LOGIN -->
+  <div id="auth-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full mx-4 shadow-2xl relative">
+      <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+
+      <div class="text-center mb-6">
+        <img src="https://instagram.fplu6-1.fna.fbcdn.net/v/t51.82787-19/707407197_17941252422216637_3119498348002162141_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=TIzGMY2yJjAQ7kNvwEvFPLK&_nc_oc=AdqSwXMC9Ikqvj06_bEv7CoUyR1krScM4kyKL29--05IAq0kafuBf19xIU7ncXxPBbeFbvl7VVuBWYjjNJuiHiM4&_nc_zt=24&_nc_ht=instagram.fplu6-1.fna&_nc_gid=RzVTsvQaVQzTOM6uTz3O7A&_nc_ss=7b6a8&oh=00_AQN1-r2usXX91N9iwiAOM0a6_66_C06PmtzjlM-7LIcI9g&oe=6AD7F77B" alt="Grupo SAFE" class="h-10 mx-auto mb-2 rounded-lg">
+        <h3 id="modal-title" class="text-xl font-bold text-safe-navy">Entrar na Plataforma</h3>
+        <p class="text-xs text-gray-500 mt-1">Acesse a conta da sua empresa para sincronizar dados</p>
+      </div>
+
+      <form id="auth-form" onsubmit="handleAuthSubmit(event)" class="space-y-4">
+        <div id="company-field" class="hidden">
+          <label class="text-xs font-semibold text-gray-600 block mb-1">Nome da Empresa</label>
+          <input type="text" id="auth-company" placeholder="Ex: Grupo SAFE Consultoria" class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-safe-blue">
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-gray-600 block mb-1">E-mail Corporativo</label>
+          <input type="email" id="auth-email" required placeholder="seuemail@empresa.com" class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-safe-blue">
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-gray-600 block mb-1">Palavra-passe</label>
+          <input type="password" id="auth-password" required placeholder="••••••••" class="w-full border border-gray-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-safe-blue">
+        </div>
+
+        <button type="submit" id="auth-submit-btn" class="w-full bg-safe-blue hover:bg-blue-600 text-white font-semibold py-2.5 rounded-xl text-sm transition">
+          Acessar
+        </button>
+      </form>
+
+      <div class="mt-4 text-center">
+        <button onclick="toggleAuthMode()" id="auth-toggle-btn" class="text-xs font-semibold text-safe-blue hover:underline">
+          Não tem uma conta? Cadastre sua empresa
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-safe-navy text-white py-8 border-t border-gray-800 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <img src="https://instagram.fplu6-1.fna.fbcdn.net/v/t51.82787-19/707407197_17941252422216637_3119498348002162141_n.jpg?stp=dst-jpg_s150x150_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=f7ccc5&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGlj.xMDgwLkMzIn0%3D&_nc_ohc=TIzGMY2yJjAQ7kNvwEvFPLK&_nc_oc=AdqSwXMC9Ikqvj06_bEv7CoUyR1krScM4kyKL29--05IAq0kafuBf19xIU7ncXxPBbeFbvl7VVuBWYjjNJuiHiM4&_nc_zt=24&_nc_ht=instagram.fplu6-1.fna&_nc_gid=RzVTsvQaVQzTOM6uTz3O7A&_nc_ss=7b6a8&oh=00_AQN1-r2usXX91N9iwiAOM0a6_66_C06PmtzjlM-7LIcI9g&oe=6AD7F77B" alt="Grupo SAFE Logo" class="h-12 mx-auto mb-3 rounded-lg bg-white/10 p-1">
+      <p class="text-xs text-gray-400">&copy; Grupo SAFE - Consultoria & Gestão. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT DE LÓGICA E SUPABASE INTEGRADO -->
+  <script>
+    // CREDENCIAIS DO SUPABASE INTEGRADAS
+    const SUPABASE_URL = 'https://sepckkpkvejzlhfcxvsl.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_IsE8xKTs8ip4F18bCTUEtw_x0pmee2K';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    let currentUser = null;
+    let isRegisterMode = false;
+
+    // ESTADOS LOCAIS DAS FERRAMENTAS
+    let checklistData = [
+      { id: 1, text: 'Verificação do uso obrigatório de Capacete de Segurança', status: 'conforme' },
+      { id: 2, text: 'Inspeção visual dos cintos de segurança tipo paraquedista', status: 'nao-conforme' },
+      { id: 3, text: 'Conferência de validade dos extintores de incêndio do setor', status: 'pendente' }
+    ];
+
+    let bowtieData = {
+      central: 'Trabalho em Altura - Queda com Desnível',
+      causes: ['Falta de treinamento NR-35', 'Superfície escorregadia'],
+      preventive: ['Uso de Cinto Tipo Paraquedista', 'Treinamento Prático'],
+      mitigative: ['Rede de Proteção', 'Plano de Resgate de Emergência'],
+      consequences: ['Lesões corporais graves', 'Paralisação de operações']
+    };
+
+    let riskMatrixData = [
+      { id: 1, activity: 'Manutenção em Painel elétrico', hazard: 'Choque de Alta Tensão', prob: 4, sev: 4, score: 16 }
+    ];
+
+    let nearMissData = [
+      { id: 1, location: 'Canteiro Obra A', description: 'Ferramenta caiu de andaime próximo a pedestre.', severity: 'Alto' }
+    ];
+
+    // INICIALIZAÇÃO
+    document.addEventListener('DOMContentLoaded', async () => {
+      checkUserSession();
+      renderChecklist();
+      renderBowtie();
+      renderRiskMatrix();
+      renderNearMisses();
+    });
+
+    // VERIFICAR SESSÃO DO USUÁRIO
+    async function checkUserSession() {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (session) {
+        currentUser = session.user;
+        updateUserUI();
+        loadCloudData();
+      }
+    }
+
+    function updateUserUI() {
+      if (currentUser) {
+        document.getElementById('btn-login-modal').classList.add('hidden');
+        document.getElementById('user-info').classList.remove('hidden');
+        document.getElementById('user-display-name').textContent = currentUser.email;
+      } else {
+        document.getElementById('btn-login-modal').classList.remove('hidden');
+        document.getElementById('user-info').classList.add('hidden');
+      }
+    }
+
+    // MODAL AUTH
+    function openAuthModal() {
+      document.getElementById('auth-modal').classList.remove('hidden');
+    }
+    function closeAuthModal() {
+      document.getElementById('auth-modal').classList.add('hidden');
+    }
+
+    function toggleAuthMode() {
+      isRegisterMode = !isRegisterMode;
+      document.getElementById('modal-title').textContent = isRegisterMode ? 'Cadastrar Empresa' : 'Entrar na Plataforma';
+      document.getElementById('company-field').classList.toggle('hidden', !isRegisterMode);
+      document.getElementById('auth-submit-btn').textContent = isRegisterMode ? 'Criar Conta' : 'Acessar';
+      document.getElementById('auth-toggle-btn').textContent = isRegisterMode ? 'Já tem uma conta? Faça login' : 'Não tem uma conta? Cadastre sua empresa';
+    }
+
+    async function handleAuthSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('auth-email').value;
+      const password = document.getElementById('auth-password').value;
+      const company = document.getElementById('auth-company').value;
+
+      if (isRegisterMode) {
+        const { data, error } = await supabaseClient.auth.signUp({ email, password });
+        if (error) return alert('Erro ao cadastrar: ' + error.message);
+        
+        if (data.user) {
+          await supabaseClient.from('profiles').insert([{ id: data.user.id, email, company_name: company }]);
+          alert('Conta criada com sucesso! Você já está autenticado.');
+          currentUser = data.user;
+          updateUserUI();
+          closeAuthModal();
         }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-        }
-
-        /* ================= TOAST NOTIFICATION ================= */
-        function showToast(message, isError = false) {
-            const toast = document.getElementById('toast-msg');
-            const toastText = document.getElementById('toast-text');
-            const toastIcon = document.getElementById('toast-icon');
-
-            toastText.textContent = message;
-            if (isError) {
-                toastIcon.className = "fa-solid fa-circle-xmark text-red-400 text-lg";
-            } else {
-                toastIcon.className = "fa-solid fa-circle-check text-emerald-400 text-lg";
-            }
-
-            toast.classList.remove('hidden');
-            setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 3000);
-        }
-
-        /* ================= 1. CHECKLIST LOGIC ================= */
-        function renderChecklist() {
-            const tbody = document.getElementById('checklist-table-body');
-            tbody.innerHTML = '';
-
-            state.checklist.forEach(item => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-50 transition-colors";
-
-                let statusBadge = '';
-                if (item.status === 'conforme') {
-                    statusBadge = `<span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-semibold"><i class="fa-solid fa-check mr-1"></i> Conforme</span>`;
-                } else if (item.status === 'nao_conforme') {
-                    statusBadge = `<span class="bg-red-100 text-red-800 text-xs px-2.5 py-1 rounded-full font-semibold"><i class="fa-solid fa-xmark mr-1"></i> Não Conforme</span>`;
-                } else {
-                    statusBadge = `<span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-semibold"><i class="fa-solid fa-clock mr-1"></i> Pendente</span>`;
-                }
-
-                tr.innerHTML = `
-                    <td class="p-4">${statusBadge}</td>
-                    <td class="p-4 font-medium text-slate-800">${escapeHtml(item.desc)}</td>
-                    <td class="p-4 text-slate-600">${escapeHtml(item.cat)}</td>
-                    <td class="p-4 text-slate-600">${escapeHtml(item.resp)}</td>
-                    <td class="p-4 text-center">
-                        <div class="inline-flex rounded-lg border border-slate-200 bg-white p-1">
-                            <button onclick="setChecklistStatus(${item.id}, 'conforme')" class="px-2 py-1 text-xs font-semibold rounded ${item.status === 'conforme' ? 'bg-emerald-600 text-white' : 'text-slate-600 hover:bg-slate-100'}">OK</button>
-                            <button onclick="setChecklistStatus(${item.id}, 'nao_conforme')" class="px-2 py-1 text-xs font-semibold rounded ${item.status === 'nao_conforme' ? 'bg-red-600 text-white' : 'text-slate-600 hover:bg-slate-100'}">NOK</button>
-                        </div>
-                    </td>
-                    <td class="p-4 text-center">
-                        <button onclick="deleteChecklistItem(${item.id})" class="text-slate-400 hover:text-red-600 transition-colors"><i class="fa-solid fa-trash-can"></i></button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-
-            updateChecklistProgress();
-            updateDashboardStats();
-        }
-
-        function addChecklistItem(e) {
-            e.preventDefault();
-            const desc = document.getElementById('chk-input-desc').value;
-            const cat = document.getElementById('chk-input-cat').value;
-            const resp = document.getElementById('chk-input-resp').value;
-
-            const newItem = {
-                id: Date.now(),
-                desc,
-                cat,
-                resp,
-                status: 'pendente'
-            };
-
-            state.checklist.push(newItem);
-            renderChecklist();
-            document.getElementById('add-checklist-form').reset();
-            showToast("Nova tarefa de inspeção cadastrada!");
-        }
-
-        function setChecklistStatus(id, status) {
-            const item = state.checklist.find(i => i.id === id);
-            if (item) {
-                item.status = status;
-                renderChecklist();
-            }
-        }
-
-        function deleteChecklistItem(id) {
-            state.checklist = state.checklist.filter(i => i.id !== id);
-            renderChecklist();
-            showToast("Item removido do checklist");
-        }
-
-        function updateChecklistProgress() {
-            if (state.checklist.length === 0) {
-                document.getElementById('chk-progress-bar').style.width = '0%';
-                document.getElementById('chk-progress-text').textContent = '0%';
-                return;
-            }
-
-            const conformes = state.checklist.filter(i => i.status === 'conforme').length;
-            const percent = Math.round((conformes / state.checklist.length) * 100);
-
-            document.getElementById('chk-progress-bar').style.width = `${percent}%`;
-            document.getElementById('chk-progress-text').textContent = `${percent}% Conformidade (${conformes}/${state.checklist.length})`;
-        }
-
-        function resetChecklist() {
-            state.checklist = [
-                { id: 1, desc: 'Uso obrigatório de capacete e botas de segurança no canteiro', cat: 'EPI / EPC', resp: 'Eng. Carlos', status: 'conforme' },
-                { id: 2, desc: 'Inspeção periódica das extintores de incêndio CO2 e PQS', cat: 'Proteção Contra Incêndio', resp: 'Téc. Amanda', status: 'conforme' },
-                { id: 3, desc: 'Aterramento elétrico temporário nos quadros de distribuição', cat: 'Instalações Elétricas', resp: 'Eletricista Roberto', status: 'nao_conforme' }
-            ];
-            renderChecklist();
-            showToast("Checklist redefinido ao padrão.");
-        }
-
-        function exportChecklistReport() {
-            showToast("Gerando relatório em formato impresso...");
-            window.print();
-        }
-
-
-        /* ================= 2. BOWTIE LOGIC ================= */
-        function renderBowtie() {
-            document.getElementById('bowtie-top-event').textContent = state.bowtie.topEvent;
-
-            const renderCol = (containerId, items, type) => {
-                const container = document.getElementById(containerId);
-                container.innerHTML = '';
-                items.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = "bowtie-card bg-slate-800 border border-slate-700 p-3 rounded-lg text-xs flex justify-between items-center group";
-                    card.innerHTML = `
-                        <span class="leading-relaxed font-medium">${escapeHtml(item.text)}</span>
-                        <button onclick="removeBowtieItem('${type}', ${item.id})" class="text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity ml-2"><i class="fa-solid fa-xmark"></i></button>
-                    `;
-                    container.appendChild(card);
-                });
-            };
-
-            renderCol('bowtie-threats-container', state.bowtie.threats, 'threat');
-            renderCol('bowtie-prev-container', state.bowtie.prevention, 'prev');
-            renderCol('bowtie-mitig-container', state.bowtie.mitigation, 'mitig');
-            renderCol('bowtie-conseq-container', state.bowtie.consequences, 'conseq');
-        }
-
-        function addBowtieItem(type) {
-            const text = prompt("Informe o texto do novo item no diagrama Bowtie:");
-            if (!text || text.trim() === "") return;
-
-            const newItem = { id: Date.now(), text: text.trim() };
-            if (type === 'threat') state.bowtie.threats.push(newItem);
-            if (type === 'prev') state.bowtie.prevention.push(newItem);
-            if (type === 'mitig') state.bowtie.mitigation.push(newItem);
-            if (type === 'conseq') state.bowtie.consequences.push(newItem);
-
-            renderBowtie();
-            showToast("Item adicionado ao Bowtie!");
-        }
-
-        function removeBowtieItem(type, id) {
-            if (type === 'threat') state.bowtie.threats = state.bowtie.threats.filter(i => i.id !== id);
-            if (type === 'prev') state.bowtie.prevention = state.bowtie.prevention.filter(i => i.id !== id);
-            if (type === 'mitig') state.bowtie.mitigation = state.bowtie.mitigation.filter(i => i.id !== id);
-            if (type === 'conseq') state.bowtie.consequences = state.bowtie.consequences.filter(i => i.id !== id);
-
-            renderBowtie();
-        }
-
-        function editTopEvent() {
-            const current = state.bowtie.topEvent;
-            const updated = prompt("Alterar Título do Evento Central:", current);
-            if (updated && updated.trim() !== "") {
-                state.bowtie.topEvent = updated.trim();
-                renderBowtie();
-            }
-        }
-
-        function resetBowtie() {
-            state.bowtie = {
-                topEvent: "Queda de Trabalhador em Altura",
-                threats: [
-                    { id: 1, text: "Falta de ponto de ancoragem adequado" },
-                    { id: 2, text: "Condições climáticas adversas (ventos)" }
-                ],
-                prevention: [
-                    { id: 1, text: "Instalação de Linha de Vida testada" },
-                    { id: 2, text: "Permissão de Trabalho (PT) prévia" }
-                ],
-                mitigation: [
-                    { id: 1, text: "Cinto Paraquedista com Talabarte Duplo" },
-                    { id: 2, text: "Equipe de Resgate em Altura apostos" }
-                ],
-                consequences: [
-                    { id: 1, text: "Lesões corporais graves ou fatalidade" },
-                    { id: 2, text: "Paralisação das operações" }
-                ]
-            };
-            renderBowtie();
-            showToast("Diagrama Bowtie restaurado.");
-        }
-
-
-        /* ================= 3. RISK MATRIX LOGIC ================= */
-        function renderMatrixGrid() {
-            const grid = document.getElementById('matrix-grid');
-            grid.innerHTML = '';
-
-            // Y Probability (5 down to 1), X Severity (1 to 5)
-            for (let prob = 5; prob >= 1; prob--) {
-                for (let sev = 1; sev <= 5; sev++) {
-                    const score = prob * sev;
-                    const cell = document.createElement('div');
-                    
-                    let bgColor = 'bg-emerald-500';
-                    if (score >= 15) bgColor = 'bg-red-600';
-                    else if (score >= 10) bgColor = 'bg-orange-500';
-                    else if (score >= 5) bgColor = 'bg-yellow-400 text-slate-900';
-
-                    const isSelected = state.selectedMatrixPos.prob === prob && state.selectedMatrixPos.sev === sev;
-                    const borderClass = isSelected ? 'ring-4 ring-safeNavy scale-105 z-10' : 'hover:opacity-90';
-
-                    cell.className = `matrix-cell h-12 flex items-center justify-center rounded-md font-bold transition-all shadow-sm ${bgColor} ${borderClass}`;
-                    cell.textContent = score;
-                    cell.onclick = () => selectMatrixCell(prob, sev);
-
-                    grid.appendChild(cell);
-                }
-            }
-        }
-
-        function selectMatrixCell(prob, sev) {
-            state.selectedMatrixPos = { prob, sev };
-            document.getElementById('risk-prob').value = prob;
-            document.getElementById('risk-sev').value = sev;
-            updateCalculatedRiskScore();
-            renderMatrixGrid();
-        }
-
-        function updateCalculatedRiskScore() {
-            const prob = parseInt(document.getElementById('risk-prob').value);
-            const sev = parseInt(document.getElementById('risk-sev').value);
-            const score = prob * sev;
-
-            state.selectedMatrixPos = { prob, sev };
-            renderMatrixGrid();
-
-            const badge = document.getElementById('risk-score-badge');
-            let level = 'Baixo';
-            let bg = 'bg-emerald-500 text-white';
-
-            if (score >= 15) {
-                level = 'Crítico';
-                bg = 'bg-red-600 text-white';
-            } else if (score >= 10) {
-                level = 'Alto';
-                bg = 'bg-orange-500 text-white';
-            } else if (score >= 5) {
-                level = 'Médio';
-                bg = 'bg-yellow-400 text-slate-900';
-            }
-
-            badge.className = `px-3 py-1 rounded text-xs font-bold ${bg}`;
-            badge.textContent = `${level} ( Score: ${score} )`;
-        }
-
-        function addRiskItem(e) {
-            e.preventDefault();
-            const title = document.getElementById('risk-title').value;
-            const cat = document.getElementById('risk-cat').value;
-            const prob = parseInt(document.getElementById('risk-prob').value);
-            const sev = parseInt(document.getElementById('risk-sev').value);
-            const control = document.getElementById('risk-control').value;
-            const score = prob * sev;
-
-            const newRisk = {
-                id: Date.now(),
-                title,
-                cat,
-                prob,
-                sev,
-                score,
-                control
-            };
-
-            state.risks.push(newRisk);
-            renderRiskTable();
-            document.getElementById('risk-form').reset();
-            updateCalculatedRiskScore();
-            showToast("Risco cadastrado com sucesso!");
-        }
-
-        function renderRiskTable() {
-            const tbody = document.getElementById('risk-table-body');
-            tbody.innerHTML = '';
-
-            state.risks.forEach(item => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-50 transition-colors";
-
-                let levelBadge = '';
-                if (item.score >= 15) levelBadge = `<span class="bg-red-100 text-red-800 text-xs px-2.5 py-1 rounded-full font-bold">Crítico (${item.score})</span>`;
-                else if (item.score >= 10) levelBadge = `<span class="bg-orange-100 text-orange-800 text-xs px-2.5 py-1 rounded-full font-bold">Alto (${item.score})</span>`;
-                else if (item.score >= 5) levelBadge = `<span class="bg-yellow-100 text-yellow-800 text-xs px-2.5 py-1 rounded-full font-bold">Médio (${item.score})</span>`;
-                else levelBadge = `<span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-bold">Baixo (${item.score})</span>`;
-
-                tr.innerHTML = `
-                    <td class="p-4 font-semibold text-slate-800">${escapeHtml(item.title)}</td>
-                    <td class="p-4 text-slate-600">${escapeHtml(item.cat)}</td>
-                    <td class="p-4 text-center font-mono text-xs">${item.prob} x ${item.sev}</td>
-                    <td class="p-4 text-center">${levelBadge}</td>
-                    <td class="p-4 text-slate-600 text-xs max-w-xs leading-relaxed">${escapeHtml(item.control)}</td>
-                    <td class="p-4 text-center">
-                        <button onclick="deleteRisk(${item.id})" class="text-slate-400 hover:text-red-600 transition-colors"><i class="fa-solid fa-trash-can"></i></button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-
-            updateDashboardStats();
-        }
-
-        function deleteRisk(id) {
-            state.risks = state.risks.filter(r => r.id !== id);
-            renderRiskTable();
-            showToast("Avaliação de risco removida.");
-        }
-
-
-        /* ================= 4. DDS GENERATOR LOGIC ================= */
-        const ddsDatabase = {
-            epi: {
-                title: "Uso Correto e Conservação dos EPIs",
-                content: `
-                    <p><strong>Objetivo:</strong> Relembrar a responsabilidade individual sobre a guarda, conservação e higienização diária dos Equipamentos de Proteção Individual.</p>
-                    <p><strong>Pontos Chave para Discussão:</strong></p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>Inspecionar os EPIs antes de cada jornada de trabalho (procurar rachaduras, fivelas frouxas ou desgaste).</li>
-                        <li>Informar imediatamente ao responsável de SST sobre qualquer equipamento danificado para substituição.</li>
-                        <li>Não improvisar alterações nem utilizar EPIs sem o devido Certificado de Aprovação (CA).</li>
-                    </ul>
-                    <p class="bg-amber-50 border-l-4 border-amber-400 p-3 text-amber-900 rounded text-xs font-medium">
-                        "O EPI não evita o acidente por si só, mas minimiza enormemente as lesões. O compromisso de usá-lo é com a sua vida!"
-                    </p>
-                `
-            },
-            altura: {
-                title: "Prevenção em Trabalhos em Altura (NR-35)",
-                content: `
-                    <p><strong>Objetivo:</strong> Reforçar os critérios de segurança em atividades executadas acima de 2,00 metros do piso.</p>
-                    <p><strong>Pontos Chave para Discussão:</strong></p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>Inspeção prévia obrigatória do cinto de segurança tipo paraquedista e dos pontos de ancoragem.</li>
-                        <li>Uso obrigatório do talabarte duplo conectado a linhas de vida certificadas durante todo o deslocamento.</li>
-                        <li>Proibição expressa de trabalhos em altura sob intempéries fortes (chuva e ventania).</li>
-                    </ul>
-                    <p class="bg-red-50 border-l-4 border-red-500 p-3 text-red-900 rounded text-xs font-medium">
-                        "Na dúvida sobre a estabilidade do ponto de ancoragem, não inicie o trabalho. Consulte o Téc. de Segurança."
-                    </p>
-                `
-            },
-            ergonomia: {
-                title: "Ergonomia e Postura Adequada no Trabalho",
-                content: `
-                    <p><strong>Objetivo:</strong> Prevenir lesões por esforço repetitivo (LER/DORT) e dores lombares na movimentação de cargas.</p>
-                    <p><strong>Pontos Chave para Discussão:</strong></p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>Ao levantar peso do chão, dobre os joelhos e mantenha a coluna ereta; utilize a força das pernas.</li>
-                        <li>Evite torcer o tronco enquanto carrega volumes pesados.</li>
-                        <li>Faça pequenas pausas para alongamento durante tarefas repetitivas.</li>
-                    </ul>
-                `
-            },
-            eletrica: {
-                title: "Riscos Elétricos e Bloqueio (LOTO)",
-                content: `
-                    <p><strong>Objetivo:</strong> Garantir a desenergização segura de máquinas e quadros antes de qualquer manutenção.</p>
-                    <p><strong>Pontos Chave para Discussão:</strong></p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>Somente profissionais habilitados e autorizados podem realizar intervenções elétricas.</li>
-                        <li>Sempre testar a ausência de tensão antes de iniciar os trabalhos.</li>
-                        <li>Utilizar cadeados e etiquetas de sinalização individuais nos disjuntores bloqueados.</li>
-                    </ul>
-                `
-            },
-            organizacao: {
-                title: "Casa Arrumada: 5S e Organização do Canteiro",
-                content: `
-                    <p><strong>Objetivo:</strong> Reduzir riscos de tropeços, quedas de mesmo nível e furos com pregos/ferramentas espalhadas.</p>
-                    <p><strong>Pontos Chave para Discussão:</strong></p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>Guardar ferramentas nas caixas apropriadas imediatamente após o uso.</li>
-                        <li>Manter corredores e passarelas de circulação totalmente livres de entulhos ou fios.</li>
-                        <li>Descarte imediato de sobras de materiais em caçambas identificadas.</li>
-                    </ul>
-                `
-            }
-        };
-
-        function selectDdsTheme(themeKey) {
-            const data = ddsDatabase[themeKey];
-            if (data) {
-                document.getElementById('dds-title').textContent = data.title;
-                document.getElementById('dds-text').innerHTML = data.content;
-                showToast(`DDS selecionado: ${data.title}`);
-            }
-        }
-
-        function copyDdsText() {
-            const title = document.getElementById('dds-title').innerText;
-            const body = document.getElementById('dds-text').innerText;
-            const textToCopy = `DDS - ${title}\n\n${body}`;
-
-            const textarea = document.createElement('textarea');
-            textarea.value = textToCopy;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-
-            showToast("Texto do DDS copiado para a área de transferência!");
-        }
-
-        function printDds() {
-            window.print();
-        }
-
-
-        /* ================= 5. INCIDENTS LOGIC ================= */
-        function addIncident(e) {
-            e.preventDefault();
-            const location = document.getElementById('inc-location').value;
-            const desc = document.getElementById('inc-desc').value;
-            const severity = document.getElementById('inc-severity').value;
-            const reporter = document.getElementById('inc-reporter').value || "Anônimo";
-
-            const newIncident = {
-                id: Date.now(),
-                location,
-                desc,
-                severity,
-                reporter,
-                date: "Hoje, " + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            };
-
-            state.incidents.unshift(newIncident);
-            renderIncidents();
-            document.getElementById('incident-form').reset();
-            showToast("Quase-acidente relatado com sucesso!");
-        }
-
-        function renderIncidents() {
-            const container = document.getElementById('incidents-feed');
-            const badge = document.getElementById('incidents-badge');
-            container.innerHTML = '';
-
-            badge.textContent = `${state.incidents.length} Relatos`;
-
-            if (state.incidents.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-400 italic text-center py-6">Nenhum relato registrado até o momento.</p>`;
-                return;
-            }
-
-            state.incidents.forEach(item => {
-                const card = document.createElement('div');
-                card.className = "p-4 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white transition-all space-y-2";
-
-                let sevColor = "bg-blue-100 text-blue-800";
-                if (item.severity === "Moderado") sevColor = "bg-amber-100 text-amber-800";
-                if (item.severity === "Grave") sevColor = "bg-red-100 text-red-800";
-
-                card.innerHTML = `
-                    <div class="flex justify-between items-start">
-                        <span class="text-xs font-bold text-safeNavy flex items-center gap-1.5">
-                            <i class="fa-solid fa-location-dot text-safeBlue"></i> ${escapeHtml(item.location)}
-                        </span>
-                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full ${sevColor}">
-                            ${escapeHtml(item.severity)}
-                        </span>
-                    </div>
-                    <p class="text-xs text-slate-700 leading-relaxed">${escapeHtml(item.desc)}</p>
-                    <div class="flex justify-between items-center pt-2 text-[10px] text-slate-400 border-t border-slate-200">
-                        <span>Relatado por: <strong>${escapeHtml(item.reporter)}</strong></span>
-                        <span>${item.date}</span>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-
-            updateDashboardStats();
-        }
-
-
-        /* ================= DASHBOARD SYNCHRONIZATION ================= */
-        function updateDashboardStats() {
-            const conformes = state.checklist.filter(i => i.status === 'conforme').length;
-            document.getElementById('dash-chk-stat').textContent = `${conformes}/${state.checklist.length} OK`;
-
-            document.getElementById('dash-risk-count').textContent = `${state.risks.length} Mapeados`;
-            document.getElementById('dash-incidents-count').textContent = `${state.incidents.length} Relatos`;
-        }
-
-        /* ================= HELPER UTILS ================= */
-        function escapeHtml(str) {
-            return String(str)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-    </script>
+      } else {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        if (error) return alert('Erro ao entrar: ' + error.message);
+        
+        currentUser = data.user;
+        updateUserUI();
+        closeAuthModal();
+        loadCloudData();
+      }
+    }
+
+    async function handleLogout() {
+      await supabaseClient.auth.signOut();
+      currentUser = null;
+      updateUserUI();
+      location.reload();
+    }
+
+    // NAVEGAÇÃO DE ABAS
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(el => {
+        el.classList.remove('active-tab', 'bg-safe-blue', 'text-white');
+        el.classList.add('inactive-tab', 'text-gray-600', 'hover:bg-gray-100');
+      });
+
+      document.getElementById(`content-${tab}`).classList.remove('hidden');
+      const activeBtn = document.getElementById(`tab-${tab}`);
+      activeBtn.classList.add('active-tab', 'bg-safe-blue', 'text-white');
+      activeBtn.classList.remove('inactive-tab', 'text-gray-600');
+    }
+
+    // LÓGICA DO CHECKLIST
+    function renderChecklist() {
+      const listContainer = document.getElementById('checklist-items');
+      listContainer.innerHTML = '';
+
+      let conforme = 0, naoConforme = 0, pendente = 0;
+
+      checklistData.forEach(item => {
+        if (item.status === 'conforme') conforme++;
+        if (item.status === 'nao-conforme') naoConforme++;
+        if (item.status === 'pendente') pendente++;
+
+        const div = document.createElement('div');
+        div.className = 'flex items-center justify-between p-3 rounded-xl border border-gray-200 bg-gray-50/50';
+        div.innerHTML = `
+          <span class="text-sm font-medium ${item.status === 'conforme' ? 'line-through text-gray-400' : 'text-gray-700'}">${item.text}</span>
+          <div class="flex space-x-1">
+            <button onclick="setChecklistStatus(${item.id}, 'conforme')" class="px-2.5 py-1 text-xs rounded-lg font-bold ${item.status === 'conforme' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-600'}">C</button>
+            <button onclick="setChecklistStatus(${item.id}, 'nao-conforme')" class="px-2.5 py-1 text-xs rounded-lg font-bold ${item.status === 'nao-conforme' ? 'bg-red-600 text-white' : 'bg-gray-200 text-gray-600'}">NC</button>
+            <button onclick="deleteChecklistItem(${item.id})" class="px-2 py-1 text-xs text-gray-400 hover:text-red-600 ml-2"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        `;
+        listContainer.appendChild(div);
+      });
+
+      document.getElementById('count-conforme').textContent = conforme;
+      document.getElementById('count-nao-conforme').textContent = naoConforme;
+      document.getElementById('count-pendente').textContent = pendente;
+
+      const total = checklistData.length;
+      const progress = total ? Math.round((conforme / total) * 100) : 0;
+      document.getElementById('checklist-progress').textContent = `${progress}% Concluído`;
+    }
+
+    async function addChecklistItem() {
+      const input = document.getElementById('new-item-input');
+      if (!input.value.trim()) return;
+
+      const newItem = { id: Date.now(), text: input.value.trim(), status: 'pendente' };
+      checklistData.push(newItem);
+      input.value = '';
+      renderChecklist();
+
+      if (currentUser) {
+        await supabaseClient.from('checklists').insert([{ user_id: currentUser.id, item_text: newItem.text, status: 'pendente' }]);
+      }
+    }
+
+    function setChecklistStatus(id, status) {
+      const item = checklistData.find(i => i.id === id);
+      if (item) {
+        item.status = item.status === status ? 'pendente' : status;
+        renderChecklist();
+      }
+    }
+
+    function deleteChecklistItem(id) {
+      checklistData = checklistData.filter(i => i.id !== id);
+      renderChecklist();
+    }
+
+    function clearChecklist() {
+      checklistData = [];
+      renderChecklist();
+    }
+
+    // LÓGICA DO BOWTIE
+    function renderBowtie() {
+      document.getElementById('bowtie-center-text').textContent = bowtieData.central;
+      renderBowtieCategory('causes', 'bowtie-causes', 'bg-red-100 text-red-800');
+      renderBowtieCategory('preventive', 'bowtie-preventive', 'bg-yellow-100 text-yellow-800');
+      renderBowtieCategory('mitigative', 'bowtie-mitigative', 'bg-blue-100 text-blue-800');
+      renderBowtieCategory('consequences', 'bowtie-consequences', 'bg-purple-100 text-purple-800');
+    }
+
+    function renderBowtieCategory(key, elementId, badgeClass) {
+      const container = document.getElementById(elementId);
+      container.innerHTML = '';
+      bowtieData[key].forEach((text, index) => {
+        const div = document.createElement('div');
+        div.className = `p-2 rounded-lg text-xs font-semibold ${badgeClass} flex justify-between items-center`;
+        div.innerHTML = `
+          <span>${text}</span>
+          <button onclick="removeBowtieItem('${key}', ${index})" class="text-xs opacity-60 hover:opacity-100"><i class="fa-solid fa-xmark"></i></button>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function addBowtieItem(category) {
+      const val = prompt('Digite o novo item:');
+      if (val) {
+        const map = { cause: 'causes', preventive: 'preventive', mitigative: 'mitigative', consequence: 'consequences' };
+        bowtieData[map[category]].push(val);
+        renderBowtie();
+      }
+    }
+
+    function removeBowtieItem(key, index) {
+      bowtieData[key].splice(index, 1);
+      renderBowtie();
+    }
+
+    // LÓGICA DA MATRIZ DE RISCO
+    function renderRiskMatrix() {
+      const tbody = document.getElementById('risk-table-body');
+      tbody.innerHTML = '';
+
+      riskMatrixData.forEach(item => {
+        const tr = document.createElement('tr');
+        let bgBadge = 'bg-green-100 text-green-800';
+        let label = 'Baixo';
+
+        if (item.score >= 15) { bgBadge = 'bg-red-100 text-red-800'; label = 'Crítico'; }
+        else if (item.score >= 10) { bgBadge = 'bg-orange-100 text-orange-800'; label = 'Alto'; }
+        else if (item.score >= 5) { bgBadge = 'bg-yellow-100 text-yellow-800'; label = 'Médio'; }
+
+        tr.innerHTML = `
+          <td class="p-3 font-semibold text-gray-800">${item.activity}</td>
+          <td class="p-3 text-gray-600">${item.hazard}</td>
+          <td class="p-3 text-center font-bold">${item.prob} x ${item.sev} = ${item.score}</td>
+          <td class="p-3 text-center"><span class="px-2.5 py-1 rounded-full text-xs font-bold ${bgBadge}">${label}</span></td>
+          <td class="p-3 text-center">
+            <button onclick="deleteRiskItem(${item.id})" class="text-red-500 hover:text-red-700 text-xs"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function addRiskItem(e) {
+      e.preventDefault();
+      const activity = document.getElementById('risk-activity').value;
+      const hazard = document.getElementById('risk-hazard').value;
+      const prob = parseInt(document.getElementById('risk-prob').value);
+      const sev = parseInt(document.getElementById('risk-sev').value);
+
+      const newItem = { id: Date.now(), activity, hazard, prob, sev, score: prob * sev };
+      riskMatrixData.push(newItem);
+      renderRiskMatrix();
+      e.target.reset();
+
+      if (currentUser) {
+        await supabaseClient.from('risk_matrix').insert([{
+          user_id: currentUser.id, activity, hazard, probability: prob, severity: sev
+        }]);
+      }
+    }
+
+    function deleteRiskItem(id) {
+      riskMatrixData = riskMatrixData.filter(i => i.id !== id);
+      renderRiskMatrix();
+    }
+
+    // LÓGICA DO GERADOR DE DDS
+    function loadDDS(type) {
+      const title = document.getElementById('dds-title');
+      const text = document.getElementById('dds-text');
+
+      if (type === 'epi') {
+        title.textContent = 'DDS: Importância e Uso Adequado dos EPIs';
+        text.textContent = 'Os Equipamentos de Proteção Individual (EPIs) garantem a integridade física do trabalhador. Sempre faça a inspeção prévia antes do uso e comunique qualquer avaria imediatamente.';
+      } else if (type === 'altura') {
+        title.textContent = 'DDS: Segurança em Trabalhos em Altura (NR-35)';
+        text.textContent = 'Trabalhos acima de 2 metros exigem planejamento rígido. Cintos de segurança, talabartes duplos e pontos de ancoragem testados são indispensáveis para evitar acidentes fatais.';
+      } else if (type === 'ergonomia') {
+        title.textContent = 'DDS: Postura e Prevenção de Lesões Ergonômicas';
+        text.textContent = 'Mantenha a postura correta durante a elevação de cargas. Dobre os joelhos, mantenha a coluna ereta e evite giros bruscos com peso nas mãos.';
+      }
+    }
+
+    // LÓGICA DE QUASE-ACIDENTES
+    function renderNearMisses() {
+      const container = document.getElementById('near-miss-list');
+      container.innerHTML = '';
+
+      nearMissData.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'p-4 rounded-xl border border-gray-200 bg-gray-50/50 flex justify-between items-start';
+        div.innerHTML = `
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-bold text-safe-navy text-sm">${item.location}</span>
+              <span class="text-xs bg-red-100 text-red-800 px-2 py-0.5 rounded font-bold">${item.severity}</span>
+            </div>
+            <p class="text-xs text-gray-600 mt-1">${item.description}</p>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    async function addNearMiss(e) {
+      e.preventDefault();
+      const location = document.getElementById('nm-location').value;
+      const description = document.getElementById('nm-description').value;
+      const severity = document.getElementById('nm-severity').value;
+
+      const newItem = { id: Date.now(), location, description, severity };
+      nearMissData.unshift(newItem);
+      renderNearMisses();
+      e.target.reset();
+
+      if (currentUser) {
+        await supabaseClient.from('near_misses').insert([{
+          user_id: currentUser.id, location, description, severity
+        }]);
+      }
+    }
+
+    // CARREGAR DADOS DO SUPABASE QUANDO LOGADO
+    async function loadCloudData() {
+      if (!currentUser) return;
+
+      // Carregar Checklists
+      const { data: dbChecklists } = await supabaseClient.from('checklists').select('*');
+      if (dbChecklists && dbChecklists.length > 0) {
+        checklistData = dbChecklists.map(i => ({ id: i.id, text: i.item_text, status: i.status }));
+        renderChecklist();
+      }
+
+      // Carregar Matriz de Risco
+      const { data: dbRisk } = await supabaseClient.from('risk_matrix').select('*');
+      if (dbRisk && dbRisk.length > 0) {
+        riskMatrixData = dbRisk.map(i => ({ id: i.id, activity: i.activity, hazard: i.hazard, prob: i.probability, sev: i.severity, score: i.probability * i.severity }));
+        renderRiskMatrix();
+      }
+
+      // Carregar Quase-Acidentes
+      const { data: dbNM } = await supabaseClient.from('near_misses').select('*');
+      if (dbNM && dbNM.length > 0) {
+        nearMissData = dbNM.map(i => ({ id: i.id, location: i.location, description: i.description, severity: i.severity }));
+        renderNearMisses();
+      }
+    }
+  </script>
 </body>
 </html>
