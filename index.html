@@ -145,27 +145,31 @@
                     >
                 </div>
 
-                <nav class="hidden md:flex space-x-1 lg:space-x-3">
-                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-2.5 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1.5">
+                <nav class="hidden md:flex space-x-1 lg:space-x-2">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-2 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1">
                         <i class="fa-solid fa-chart-pie"></i> Painel SST
                     </button>
-                    <button onclick="switchTab('checklist')" id="nav-checklist" class="px-2.5 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1.5">
+                    <button onclick="switchTab('checklist')" id="nav-checklist" class="px-2 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1">
                         <i class="fa-solid fa-square-check"></i> Checklist
                     </button>
-                    <button onclick="switchTab('bowtie')" id="nav-bowtie" class="px-2.5 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1.5">
+                    <button onclick="switchTab('bowtie')" id="nav-bowtie" class="px-2 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1">
                         <i class="fa-solid fa-diagram-project"></i> Método Bowtie
                     </button>
-                    <button onclick="switchTab('matriz')" id="nav-matriz" class="px-2.5 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1.5">
+                    <button onclick="switchTab('matriz')" id="nav-matriz" class="px-2 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1">
                         <i class="fa-solid fa-table-cells"></i> Matriz de Risco
                     </button>
-                    <button onclick="switchTab('dds')" id="nav-dds" class="px-2.5 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1.5">
+                    <button onclick="switchTab('dds')" id="nav-dds" class="px-2 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1">
                         <i class="fa-solid fa-comments"></i> Gerador DDS
                     </button>
-                    <button onclick="switchTab('incidentes')" id="nav-incidentes" class="px-2.5 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1.5">
+                    <button onclick="switchTab('incidentes')" id="nav-incidentes" class="px-2 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1">
                         <i class="fa-solid fa-triangle-exclamation"></i> Quase-Acidentes
                     </button>
-                    <button onclick="switchTab('avaliacao')" id="nav-avaliacao" class="px-2.5 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1.5">
-                        <i class="fa-solid fa-star"></i> Avaliação Treinamento
+                    <button onclick="switchTab('avaliacao')" id="nav-avaliacao" class="px-2 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1">
+                        <i class="fa-solid fa-star"></i> Avaliação
+                    </button>
+                    <!-- NOVA ABA ADICIONADA: PAINEL DO GESTOR -->
+                    <button onclick="switchTab('gestor')" id="nav-gestor" class="px-2 py-2 text-xs lg:text-sm font-bold text-amber-300 hover:text-amber-400 transition-colors flex items-center gap-1 bg-amber-500/10 rounded-lg border border-amber-500/20">
+                        <i class="fa-solid fa-user-tie"></i> Painel Gestor
                     </button>
                 </nav>
 
@@ -201,6 +205,7 @@
             <button onclick="switchTab('dds')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Gerador DDS</button>
             <button onclick="switchTab('incidentes')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Relato de Quase-Acidentes</button>
             <button onclick="switchTab('avaliacao')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Avaliação Treinamento</button>
+            <button onclick="switchTab('gestor')" class="w-full text-left px-3 py-2 text-sm font-bold text-amber-300 hover:bg-slate-800 rounded-md">Painel do Gestor Executivo</button>
         </div>
     </header>
 
@@ -699,6 +704,122 @@
             </section>
         </section>
 
+        <!-- NOVA SEÇÃO ACRESCENTADA: TAB 8: PAINEL DO GESTOR EXEC -->
+        <section id="tab-gestor" class="hidden space-y-6">
+            <div class="bg-gradient-to-r from-slate-900 via-safeNavy to-slate-900 p-6 sm:p-8 rounded-2xl text-white shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <span class="bg-amber-500/20 text-amber-300 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wider border border-amber-500/30">
+                        <i class="fa-solid fa-shield-halved mr-1"></i> Acesso Restrito à Diretoria
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold mt-2">Painel de Controle do Gestor</h2>
+                    <p class="text-slate-300 text-xs sm:text-sm mt-1">Acompanhamento centralizado de todas as respostas, relatórios de colaboradores e métricas globais SST.</p>
+                </div>
+                <button onclick="loadManagerData()" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2.5 rounded-xl text-xs sm:text-sm transition flex items-center gap-2 shadow-lg">
+                    <i class="fa-solid fa-arrows-rotate"></i> Atualizar Dados do Banco
+                </button>
+            </div>
+
+            <!-- CARDS DE METRICAS EXECUTIVAS -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase">Avaliações Treinamento</p>
+                        <h3 class="text-2xl font-bold text-slate-800" id="m-eval-count">0</h3>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase">Média Geral Satisfação</p>
+                        <h3 class="text-2xl font-bold text-slate-800" id="m-avg-rating">0.0 / 5.0</h3>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase">Relatos Quase-Acidentes</p>
+                        <h3 class="text-2xl font-bold text-slate-800" id="m-incidents-count">0</h3>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-clipboard-check"></i>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-slate-500 uppercase">Total Inspeções Mapeadas</p>
+                        <h3 class="text-2xl font-bold text-slate-800" id="m-risks-count">0</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TABELA CONSOLIDADA 1: AVALIAÇÕES DE TREINAMENTO -->
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="p-4 bg-slate-100 border-b border-slate-200 flex justify-between items-center">
+                    <h3 class="font-bold text-safeNavy text-base flex items-center gap-2">
+                        <i class="fa-solid fa-list-ul text-[#1E3A8A]"></i> Respostas do Formulário de Treinamentos (SAFE Flow)
+                    </h3>
+                    <span class="text-xs bg-slate-200 text-slate-700 px-2.5 py-1 rounded-full font-bold" id="manager-eval-badge">0 Registros</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-600 text-xs uppercase tracking-wider border-b border-slate-200">
+                                <th class="p-4">Data</th>
+                                <th class="p-4">Treinamento</th>
+                                <th class="p-4">Empresa</th>
+                                <th class="p-4 text-center">Instrutor</th>
+                                <th class="p-4 text-center">Conteúdo</th>
+                                <th class="p-4 text-center">Infraestrutura</th>
+                                <th class="p-4 text-center">Nota Geral</th>
+                                <th class="p-4">Comentários</th>
+                            </tr>
+                        </thead>
+                        <tbody id="manager-eval-table" class="divide-y divide-slate-200 text-xs">
+                            <tr>
+                                <td colspan="8" class="p-6 text-center text-slate-400 italic">Clique em "Atualizar Dados do Banco" ou faça login como Gestor para visualizar os registros.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- TABELA CONSOLIDADA 2: QUASE ACIDENTES DOS FUNCIONÁRIOS -->
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="p-4 bg-slate-100 border-b border-slate-200 flex justify-between items-center">
+                    <h3 class="font-bold text-safeNavy text-base flex items-center gap-2">
+                        <i class="fa-solid fa-bullhorn text-rose-600"></i> Relatos de Desvios & Quase-Acidentes Registrados
+                    </h3>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-600 text-xs uppercase tracking-wider border-b border-slate-200">
+                                <th class="p-4">Local/Setor</th>
+                                <th class="p-4">Descrição do Ocorrido</th>
+                                <th class="p-4 text-center">Gravidade Potencial</th>
+                                <th class="p-4">Relator</th>
+                            </tr>
+                        </thead>
+                        <tbody id="manager-incidents-table" class="divide-y divide-slate-200 text-xs">
+                            <tr>
+                                <td colspan="4" class="p-6 text-center text-slate-400 italic">Nenhum relato selecionado.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- MODAL AUTH -->
@@ -947,7 +1068,7 @@
         }
 
         function switchTab(tabId) {
-            const tabs = ['dashboard', 'checklist', 'bowtie', 'matriz', 'dds', 'incidentes', 'avaliacao'];
+            const tabs = ['dashboard', 'checklist', 'bowtie', 'matriz', 'dds', 'incidentes', 'avaliacao', 'gestor'];
             tabs.forEach(id => {
                 const sec = document.getElementById(`tab-${id}`);
                 const nav = document.getElementById(`nav-${id}`);
@@ -961,6 +1082,10 @@
             if (activeNav) activeNav.classList.add('active-tab');
 
             document.getElementById('mobile-menu').classList.add('hidden');
+
+            if (tabId === 'gestor') {
+                loadManagerData();
+            }
         }
 
         function toggleMobileMenu() {
@@ -1444,6 +1569,79 @@
 
             document.getElementById('dash-risk-count').textContent = `${state.risks.length} Mapeados`;
             document.getElementById('dash-incidents-count').textContent = `${state.incidents.length} Relatos`;
+        }
+
+        /* NOVA FUNÇÃO ACRESCENTADA: CARREGAR DADOS DO PAINEL DO GESTOR */
+        async function loadManagerData() {
+            showToast("Buscando dados gerais no banco Supabase...");
+            
+            // 1. Carregar Avaliações de Treinamento
+            const { data: dbEvals, error: errEvals } = await supabaseClient
+                .from('training_evaluations')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            const tbodyEvals = document.getElementById('manager-eval-table');
+            if (dbEvals && dbEvals.length > 0) {
+                tbodyEvals.innerHTML = '';
+                let totalScore = 0;
+
+                dbEvals.forEach(item => {
+                    totalScore += (item.overall_rating || 5);
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-slate-50 transition-colors";
+                    tr.innerHTML = `
+                        <td class="p-4 font-mono text-slate-500">${item.evaluation_date || 'N/A'}</td>
+                        <td class="p-4 font-bold text-slate-800">${escapeHtml(item.training_name || '-')}</td>
+                        <td class="p-4 text-slate-600">${escapeHtml(item.company || '-')}</td>
+                        <td class="p-4 text-center"><span class="bg-slate-100 px-2 py-1 rounded text-slate-700 font-semibold">${escapeHtml(item.instructor_rating || '-')}</span></td>
+                        <td class="p-4 text-center"><span class="bg-slate-100 px-2 py-1 rounded text-slate-700 font-semibold">${escapeHtml(item.content_rating || '-')}</span></td>
+                        <td class="p-4 text-center"><span class="bg-slate-100 px-2 py-1 rounded text-slate-700 font-semibold">${escapeHtml(item.infrastructure_rating || '-')}</span></td>
+                        <td class="p-4 text-center font-bold text-amber-500"><i class="fa-solid fa-star mr-1"></i>${item.overall_rating || 5} / 5</td>
+                        <td class="p-4 text-slate-600 max-w-xs italic">${escapeHtml(item.comments || 'Sem comentários')}</td>
+                    `;
+                    tbodyEvals.appendChild(tr);
+                });
+
+                const avg = (totalScore / dbEvals.length).toFixed(1);
+                document.getElementById('m-eval-count').textContent = dbEvals.length;
+                document.getElementById('m-avg-rating').textContent = `${avg} / 5.0`;
+                document.getElementById('manager-eval-badge').textContent = `${dbEvals.length} Registros`;
+            } else {
+                tbodyEvals.innerHTML = `<tr><td colspan="8" class="p-6 text-center text-slate-400 italic">Nenhuma avaliação encontrada no banco.</td></tr>`;
+                document.getElementById('m-eval-count').textContent = "0";
+                document.getElementById('m-avg-rating').textContent = "0.0 / 5.0";
+            }
+
+            // 2. Carregar Quase-Acidentes Gerais
+            const { data: dbIncidents } = await supabaseClient
+                .from('near_misses')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            const tbodyInc = document.getElementById('manager-incidents-table');
+            if (dbIncidents && dbIncidents.length > 0) {
+                tbodyInc.innerHTML = '';
+                dbIncidents.forEach(item => {
+                    const tr = document.createElement('tr');
+                    tr.className = "hover:bg-slate-50 transition-colors";
+                    tr.innerHTML = `
+                        <td class="p-4 font-bold text-slate-800">${escapeHtml(item.location || '-')}</td>
+                        <td class="p-4 text-slate-600 leading-relaxed">${escapeHtml(item.description || '-')}</td>
+                        <td class="p-4 text-center"><span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">${escapeHtml(item.severity || 'Moderado')}</span></td>
+                        <td class="p-4 text-slate-500 font-medium">${escapeHtml(item.reporter || 'Anônimo')}</td>
+                    `;
+                    tbodyInc.appendChild(tr);
+                });
+                document.getElementById('m-incidents-count').textContent = dbIncidents.length;
+            } else {
+                tbodyInc.innerHTML = `<tr><td colspan="4" class="p-6 text-center text-slate-400 italic">Nenhum relato encontrado no banco.</td></tr>`;
+                document.getElementById('m-incidents-count').textContent = "0";
+            }
+
+            // 3. Contagem de Riscos Mapeados
+            const { data: dbRisks } = await supabaseClient.from('risk_matrix').select('id');
+            document.getElementById('m-risks-count').textContent = dbRisks ? dbRisks.length : 0;
         }
 
         function escapeHtml(str) {
