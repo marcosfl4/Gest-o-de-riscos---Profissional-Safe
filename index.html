@@ -167,7 +167,8 @@
                     <button onclick="switchTab('avaliacao')" id="nav-avaliacao" class="px-2 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1">
                         <i class="fa-solid fa-star"></i> Avaliação
                     </button>
-                    <button onclick="switchTab('gestor')" id="nav-gestor" class="px-2 py-2 text-xs lg:text-sm font-bold text-amber-300 hover:text-amber-400 transition-colors flex items-center gap-1 bg-amber-500/10 rounded-lg border border-amber-500/20">
+                    <!-- BOTÃO DO PAINEL GESTOR (Oculto por padrão, visível somente via JS para admins) -->
+                    <button onclick="switchTab('gestor')" id="nav-gestor" class="hidden px-2 py-2 text-xs lg:text-sm font-bold text-amber-300 hover:text-amber-400 transition-colors flex items-center gap-1 bg-amber-500/10 rounded-lg border border-amber-500/20">
                         <i class="fa-solid fa-user-tie"></i> Painel Gestor
                     </button>
                 </nav>
@@ -204,7 +205,7 @@
             <button onclick="switchTab('dds')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Gerador DDS</button>
             <button onclick="switchTab('incidentes')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Relato de Quase-Acidentes</button>
             <button onclick="switchTab('avaliacao')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Avaliação Treinamento</button>
-            <button onclick="switchTab('gestor')" class="w-full text-left px-3 py-2 text-sm font-bold text-amber-300 hover:bg-slate-800 rounded-md">Painel do Gestor Executivo</button>
+            <button onclick="switchTab('gestor')" id="nav-gestor-mobile" class="hidden w-full text-left px-3 py-2 text-sm font-bold text-amber-300 hover:bg-slate-800 rounded-md">Painel do Gestor Executivo</button>
         </div>
     </header>
 
@@ -957,18 +958,38 @@
             }
         }
 
-        function updateUserUI() {
+        /* MODIFICAÇÃO DO PASSO 3 APLICADA ABAIXO NA FUNÇÃO updateUserUI */
+        async function updateUserUI() {
             const btnModal = document.getElementById('btn-login-modal');
             const userInfo = document.getElementById('user-info');
             const userDisplayName = document.getElementById('user-display-name');
+            const navGestor = document.getElementById('nav-gestor');
+            const navGestorMobile = document.getElementById('nav-gestor-mobile');
 
             if (currentUser) {
                 if (btnModal) btnModal.classList.add('hidden');
                 if (userInfo) userInfo.classList.remove('hidden');
                 if (userDisplayName) userDisplayName.textContent = currentUser.email;
+
+                // Consulta o perfil do usuário logado para verificar o cargo (role)
+                const { data: profile } = await supabaseClient
+                    .from('profiles')
+                    .select('role')
+                    .eq('id', currentUser.id)
+                    .single();
+
+                if (profile && profile.role === 'admin') {
+                    if (navGestor) navGestor.classList.remove('hidden');
+                    if (navGestorMobile) navGestorMobile.classList.remove('hidden');
+                } else {
+                    if (navGestor) navGestor.classList.add('hidden');
+                    if (navGestorMobile) navGestorMobile.classList.add('hidden');
+                }
             } else {
                 if (btnModal) btnModal.classList.remove('hidden');
                 if (userInfo) userInfo.classList.add('hidden');
+                if (navGestor) navGestor.classList.add('hidden');
+                if (navGestorMobile) navGestorMobile.classList.add('hidden');
             }
         }
 
