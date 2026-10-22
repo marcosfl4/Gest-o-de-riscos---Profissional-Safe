@@ -131,56 +131,58 @@
 </head>
 <body class="bg-slate-50 font-sans text-slate-800 antialiased min-h-screen flex flex-col">
 
-    <!-- HEADER / NAVIGATION -->
+    <!-- HEADER / NAVIGATION COMPACTO -->
     <header class="bg-safeNavy text-white shadow-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+        <div class="max-w-[1536px] mx-auto px-2 sm:px-4">
+            <div class="flex justify-between items-center h-20 gap-1 sm:gap-2">
                 
-                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('dashboard')">
+                <!-- LOGO -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer pr-1" onclick="switchTab('dashboard')">
                     <img 
                         src="WhatsApp Image 2026-10-22 at 00.13.03.jpeg" 
                         alt="Grupo SAFE - Consultoria & Gestão" 
-                        class="h-12 w-auto object-contain rounded-lg shadow-sm bg-white p-1"
+                        class="h-10 sm:h-11 w-auto object-contain rounded-lg shadow-sm bg-white p-1"
                         onerror="this.onerror=null; this.src='https://placehold.co/180x50/0F2C59/FFFFFF?text=GRUPO+SAFE';"
                     >
                 </div>
 
-                <nav class="hidden md:flex space-x-1 lg:space-x-2">
-                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-2 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1">
-                        <i class="fa-solid fa-chart-pie"></i> Painel SST
+                <!-- MENU DE NAVEGAÇÃO ENCHUTADO PARA CABER TUDO -->
+                <nav class="hidden md:flex items-center space-x-0.5 xl:space-x-1">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-1.5 py-1.5 text-[11px] xl:text-xs font-semibold hover:text-safeBlue transition-colors flex items-center gap-1 whitespace-nowrap">
+                        <i class="fa-solid fa-chart-pie text-[10px]"></i> Painel SST
                     </button>
-                    <button onclick="switchTab('checklist')" id="nav-checklist" class="px-2 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1">
-                        <i class="fa-solid fa-square-check"></i> Checklist
+                    <button onclick="switchTab('checklist')" id="nav-checklist" class="px-1.5 py-1.5 text-[11px] xl:text-xs font-semibold hover:text-safeBlue transition-colors flex items-center gap-1 whitespace-nowrap">
+                        <i class="fa-solid fa-square-check text-[10px]"></i> Checklist
                     </button>
-                    <button onclick="switchTab('bowtie')" id="nav-bowtie" class="px-2 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1">
-                        <i class="fa-solid fa-diagram-project"></i> Método Bowtie
+                    <button onclick="switchTab('bowtie')" id="nav-bowtie" class="px-1.5 py-1.5 text-[11px] xl:text-xs font-semibold hover:text-safeBlue transition-colors flex items-center gap-1 whitespace-nowrap">
+                        <i class="fa-solid fa-diagram-project text-[10px]"></i> Método Bowtie
                     </button>
-                    <button onclick="switchTab('matriz')" id="nav-matriz" class="px-2 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1">
-                        <i class="fa-solid fa-table-cells"></i> Matriz de Risco
+                    <button onclick="switchTab('matriz')" id="nav-matriz" class="px-1.5 py-1.5 text-[11px] xl:text-xs font-semibold hover:text-safeBlue transition-colors flex items-center gap-1 whitespace-nowrap">
+                        <i class="fa-solid fa-table-cells text-[10px]"></i> Matriz de Risco
                     </button>
-                    <button onclick="switchTab('dds')" id="nav-dds" class="px-2 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1">
-                        <i class="fa-solid fa-comments"></i> Gerador DDS
+                    <button onclick="switchTab('dds')" id="nav-dds" class="px-1.5 py-1.5 text-[11px] xl:text-xs font-semibold hover:text-safeBlue transition-colors flex items-center gap-1 whitespace-nowrap">
+                        <i class="fa-solid fa-comments text-[10px]"></i> Gerador DDS
                     </button>
-                    <button onclick="switchTab('incidentes')" id="nav-incidentes" class="px-2 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1">
-                        <i class="fa-solid fa-triangle-exclamation"></i> Quase-Acidentes
+                    <button onclick="switchTab('incidentes')" id="nav-incidentes" class="px-1.5 py-1.5 text-[11px] xl:text-xs font-semibold hover:text-safeBlue transition-colors flex items-center gap-1 whitespace-nowrap">
+                        <i class="fa-solid fa-triangle-exclamation text-[10px]"></i> Quase-Acidentes
                     </button>
-                    <button onclick="switchTab('avaliacao')" id="nav-avaliacao" class="px-2 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1">
-                        <i class="fa-solid fa-star"></i> Avaliação
+                    <button onclick="switchTab('avaliacao')" id="nav-avaliacao" class="px-1.5 py-1.5 text-[11px] xl:text-xs font-semibold hover:text-safeBlue transition-colors flex items-center gap-1 whitespace-nowrap">
+                        <i class="fa-solid fa-star text-[10px]"></i> Avaliação
                     </button>
-                    <!-- BOTÃO DO PAINEL GESTOR (Oculto por padrão, visível somente via JS para admins) -->
-                    <button onclick="switchTab('gestor')" id="nav-gestor" class="hidden px-2 py-2 text-xs lg:text-sm font-bold text-amber-300 hover:text-amber-400 transition-colors flex items-center gap-1 bg-amber-500/10 rounded-lg border border-amber-500/20">
-                        <i class="fa-solid fa-user-tie"></i> Painel Gestor
+                    <button onclick="switchTab('gestor')" id="nav-gestor" class="hidden px-2 py-1 text-[11px] xl:text-xs font-bold text-amber-300 hover:text-amber-400 transition-colors flex items-center gap-1 bg-amber-500/10 rounded-md border border-amber-500/20 whitespace-nowrap">
+                        <i class="fa-solid fa-user-tie text-[10px]"></i> Painel Gestor
                     </button>
                 </nav>
 
-                <div class="hidden md:flex items-center space-x-3">
-                    <div id="user-info" class="hidden flex items-center space-x-3">
-                        <span class="text-xs font-semibold text-slate-200" id="user-display-name"></span>
-                        <button onclick="handleLogout()" class="bg-red-500/20 hover:bg-red-500/30 text-red-300 px-3 py-1.5 rounded-lg text-xs font-semibold border border-red-500/30 transition">
+                <!-- ÁREA DO USUÁRIO -->
+                <div class="hidden md:flex flex-shrink-0 items-center space-x-1 sm:space-x-2 pl-1">
+                    <div id="user-info" class="hidden flex items-center space-x-1.5">
+                        <span class="text-[11px] font-medium text-slate-200 truncate max-w-[130px] lg:max-w-[160px]" id="user-display-name"></span>
+                        <button onclick="handleLogout()" class="bg-red-500/20 hover:bg-red-500/30 text-red-300 px-2 py-1 rounded-md text-[11px] font-semibold border border-red-500/30 transition flex items-center">
                             <i class="fa-solid fa-right-from-bracket mr-1"></i> Sair
                         </button>
                     </div>
-                    <button id="btn-login-modal" onclick="openAuthModal()" class="bg-safeBlue hover:bg-sky-500 text-white px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 shadow-sm">
+                    <button id="btn-login-modal" onclick="openAuthModal()" class="bg-safeBlue hover:bg-sky-500 text-white px-3 py-1.5 rounded-md text-xs font-semibold transition flex items-center gap-1.5 shadow-sm">
                         <i class="fa-solid fa-user-lock"></i>
                         <span>Entrar / Cadastrar</span>
                     </button>
@@ -958,7 +960,6 @@
             }
         }
 
-        /* MODIFICAÇÃO DO PASSO 3 APLICADA ABAIXO NA FUNÇÃO updateUserUI */
         async function updateUserUI() {
             const btnModal = document.getElementById('btn-login-modal');
             const userInfo = document.getElementById('user-info');
