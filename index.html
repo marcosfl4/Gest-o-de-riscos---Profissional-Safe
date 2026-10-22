@@ -66,6 +66,67 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
+
+        /* Estilos do Formulário SAFE Flow */
+        .sf-form{--sf-pri:#1E3A8A;--sf-acc:#2563EB;--sf-ink:#0F172A;--sf-txt:#334155;--sf-mut:#475569;--sf-line:#E2E8F0;--sf-err:#B91C1C;--sf-star:#FBBF24;--sf-off:#B4C0D0;--sf-sel:#EAF0FD;max-width:720px;margin:0 auto;color:var(--sf-ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:16px;line-height:1.5}
+        .sf-form *{box-sizing:border-box}
+        .sf-head{background:var(--sf-pri);color:#fff;padding:28px 24px;border-radius:16px 16px 0 0}
+        .sf-head h2{margin:0 0 10px;font-size:1.75rem;line-height:1.2;font-weight:700;animation:sf-in .6s ease both}
+        .sf-head p{margin:0;max-width:60ch;color:#DBEAFE;animation:sf-in .6s .15s ease both}
+        .sf-body{background:#fff;border:1px solid var(--sf-line);border-top:0;border-radius:0 0 16px 16px;padding:24px 20px 32px;transition:opacity .25s ease}
+        .sf-body.sf-out{opacity:0}
+        .sf-note{margin:0 0 4px;color:var(--sf-mut);font-size:.9rem}
+        .sf-prog{position:sticky;top:var(--sf-sticky-top,0px);z-index:2;margin:-24px -20px 0;padding:12px 20px;background:#fff;border-bottom:1px solid var(--sf-line)}
+        .sf-prog p{margin:0 0 6px;font-size:.9rem;font-weight:600;color:var(--sf-mut)}
+        .sf-prog+.sf-note{margin-top:16px}
+        .sf-bar{height:8px;overflow:hidden;background:var(--sf-line);border-radius:4px}
+        .sf-bar span{display:block;width:0;height:100%;background:var(--sf-acc);border-radius:4px;transition:width .4s ease}
+        .sf-q{min-width:0;margin:32px 0 0;padding:0;border:0;transition:opacity .45s ease,transform .45s ease}
+        .sf-q legend{float:left;width:100%;margin:0 0 14px;padding:0;font-size:1.1rem;font-weight:600;line-height:1.4}
+        .sf-q legend+*{clear:both}
+        .sf-req{color:var(--sf-err)}
+        .sf-hint{margin:0 0 12px;color:var(--sf-mut);font-size:.9rem}
+        .sf-q select,.sf-q input[type=date],.sf-q textarea{width:100%;min-height:52px;padding:14px 16px;font:inherit;color:inherit;background:#F8FAFC;border:1px solid var(--sf-line);border-radius:14px}
+        .sf-q textarea{min-height:130px;resize:vertical}
+        .sf-q textarea::placeholder{color:#7B8AA0}
+        .sf-opts{display:grid;gap:12px}
+        .sf-opt{position:relative;display:flex;align-items:center;gap:14px;min-height:60px;padding:14px 20px;color:var(--sf-txt);background:#fff;border:1px solid var(--sf-line);border-radius:14px;cursor:pointer;transition:background .15s ease,border-color .15s ease}
+        .sf-opt:hover{background:#F8FAFC}
+        .sf-opt input{position:absolute;width:1px;height:1px;opacity:0}
+        .sf-opt.sel{color:var(--sf-ink);font-weight:600;background:var(--sf-sel);border-color:var(--sf-pri);box-shadow:inset 0 0 0 1px var(--sf-pri)}
+        .sf-opt:has(input:focus-visible){outline:3px solid var(--sf-acc);outline-offset:2px}
+        .sf-ico{flex:none;width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+        .sf-ico .in{fill:currentColor;stroke:none;opacity:0}
+        .ic-gray{color:#94A3B8}.ic-warn{color:#F59E0B}.ic-blue{color:#2563EB}.ic-green{color:#10B981}.ic-gold{color:#F5B301}
+        .sf-opt.sel .ic-gray{color:var(--sf-pri)}
+        .sf-opt.sel .in{opacity:1}
+        .sf-box{padding:22px 12px 18px;text-align:center;background:#F8FAFC;border:1px solid var(--sf-line);border-radius:14px}
+        .sf-stars{display:flex;justify-content:center;gap:6px}
+        .sf-stars button{flex:1;max-width:52px;aspect-ratio:1/1;padding:0;color:var(--sf-off);background:none;border:0;border-radius:10px;cursor:pointer}
+        .sf-stars button svg{width:85%;height:85%;fill:currentColor;stroke:currentColor;stroke-width:2;stroke-linejoin:round}
+        .sf-stars button.on{color:var(--sf-star)}
+        .sf-stars button.pop{animation:sf-pop .3s ease}
+        .sf-cap{margin:10px 0 0;color:var(--sf-mut);font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+        .sf-form :focus-visible{outline:3px solid var(--sf-acc);outline-offset:2px}
+        .sf-err{margin:10px 0 0;color:var(--sf-err);font-size:.9rem;font-weight:500}
+        .sf-q.bad .sf-opt,.sf-q.bad select,.sf-q.bad textarea,.sf-q.bad .sf-box{border-color:var(--sf-err)}
+        .sf-status{min-height:1.5em;margin:20px 0 0;color:var(--sf-err);font-weight:600}
+        .sf-btn{width:100%;min-height:56px;margin-top:12px;font:inherit;font-size:1.05rem;font-weight:600;color:#fff;background:var(--sf-pri);border:0;border-radius:14px;cursor:pointer}
+        .sf-btn:hover{background:var(--sf-acc)}
+        .sf-btn:disabled{opacity:.6;cursor:wait}
+        .sf-link{margin-top:16px;padding:8px 0;font:inherit;font-size:.9rem;color:var(--sf-mut);text-decoration:underline;background:none;border:0;cursor:pointer}
+        .sf-done{padding:40px 24px;text-align:center;background:#fff;border:1px solid var(--sf-line);border-radius:16px;animation:sf-in .5s ease both}
+        .sf-done h2{margin:0 0 8px;font-size:1.5rem}
+        .sf-done p{margin:0 0 20px}
+        .sf-done .sf-btn{width:auto;padding:0 28px}
+        .sf-check{width:72px;height:72px;margin-bottom:12px;fill:none;stroke:var(--sf-pri);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+        .sf-check circle{stroke-dasharray:151;stroke-dashoffset:151;animation:sf-draw .6s ease forwards}
+        .sf-check path{stroke-dasharray:40;stroke-dashoffset:40;animation:sf-draw .4s .45s ease forwards}
+        @keyframes sf-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+        @keyframes sf-draw{to{stroke-dashoffset:0}}
+        @keyframes sf-pop{50%{transform:scale(1.3)}}
+        .sf-anim .sf-q:not(.sf-in){opacity:0;transform:translateY(14px)}
+        @media (prefers-reduced-motion:reduce){.sf-form *{animation:none!important;transition:none!important}.sf-anim .sf-q:not(.sf-in){opacity:1;transform:none}.sf-check circle,.sf-check path{stroke-dashoffset:0}}
     </style>
 </head>
 <body class="bg-slate-50 font-sans text-slate-800 antialiased min-h-screen flex flex-col">
@@ -84,24 +145,27 @@
                     >
                 </div>
 
-                <nav class="hidden md:flex space-x-1 lg:space-x-4">
-                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-3 py-2 text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-2">
+                <nav class="hidden md:flex space-x-1 lg:space-x-3">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="px-2.5 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1.5">
                         <i class="fa-solid fa-chart-pie"></i> Painel SST
                     </button>
-                    <button onclick="switchTab('checklist')" id="nav-checklist" class="px-3 py-2 text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-2">
+                    <button onclick="switchTab('checklist')" id="nav-checklist" class="px-2.5 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1.5">
                         <i class="fa-solid fa-square-check"></i> Checklist
                     </button>
-                    <button onclick="switchTab('bowtie')" id="nav-bowtie" class="px-3 py-2 text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-2">
+                    <button onclick="switchTab('bowtie')" id="nav-bowtie" class="px-2.5 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1.5">
                         <i class="fa-solid fa-diagram-project"></i> Método Bowtie
                     </button>
-                    <button onclick="switchTab('matriz')" id="nav-matriz" class="px-3 py-2 text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-2">
+                    <button onclick="switchTab('matriz')" id="nav-matriz" class="px-2.5 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1.5">
                         <i class="fa-solid fa-table-cells"></i> Matriz de Risco
                     </button>
-                    <button onclick="switchTab('dds')" id="nav-dds" class="px-3 py-2 text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-2">
+                    <button onclick="switchTab('dds')" id="nav-dds" class="px-2.5 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1.5">
                         <i class="fa-solid fa-comments"></i> Gerador DDS
                     </button>
-                    <button onclick="switchTab('incidentes')" id="nav-incidentes" class="px-3 py-2 text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-2">
+                    <button onclick="switchTab('incidentes')" id="nav-incidentes" class="px-2.5 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1.5">
                         <i class="fa-solid fa-triangle-exclamation"></i> Quase-Acidentes
+                    </button>
+                    <button onclick="switchTab('avaliacao')" id="nav-avaliacao" class="px-2.5 py-2 text-xs lg:text-sm font-medium hover:text-safeBlue transition-colors flex items-center gap-1.5">
+                        <i class="fa-solid fa-star"></i> Avaliação Treinamento
                     </button>
                 </nav>
 
@@ -136,6 +200,7 @@
             <button onclick="switchTab('matriz')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Matriz de Risco 5x5</button>
             <button onclick="switchTab('dds')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Gerador DDS</button>
             <button onclick="switchTab('incidentes')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Relato de Quase-Acidentes</button>
+            <button onclick="switchTab('avaliacao')" class="w-full text-left px-3 py-2 text-sm font-medium text-white hover:bg-slate-800 rounded-md">Avaliação Treinamento</button>
         </div>
     </header>
 
@@ -627,6 +692,13 @@
             </div>
         </section>
 
+        <!-- TAB 7: AVALIAÇÃO DE TREINAMENTO (SAFE FLOW) -->
+        <section id="tab-avaliacao" class="hidden space-y-6">
+            <section id="avaliacao-reacao" class="sf-form" aria-label="Avaliação do treinamento">
+                <noscript>Ative o JavaScript do seu navegador para responder.</noscript>
+            </section>
+        </section>
+
     </main>
 
     <!-- MODAL AUTH -->
@@ -753,6 +825,7 @@
             renderIncidents();
             updateDashboardStats();
             updateCalculatedRiskScore();
+            initSafeFlowForm();
         };
 
         async function checkUserSession() {
@@ -874,7 +947,7 @@
         }
 
         function switchTab(tabId) {
-            const tabs = ['dashboard', 'checklist', 'bowtie', 'matriz', 'dds', 'incidentes'];
+            const tabs = ['dashboard', 'checklist', 'bowtie', 'matriz', 'dds', 'incidentes', 'avaliacao'];
             tabs.forEach(id => {
                 const sec = document.getElementById(`tab-${id}`);
                 const nav = document.getElementById(`nav-${id}`);
@@ -1380,6 +1453,280 @@
                 .replace(/>/g, "&gt;")
                 .replace(/"/g, "&quot;")
                 .replace(/'/g, "&#039;");
+        }
+
+        /* LÓGICA DO FORMULÁRIO SAFE FLOW COM INTEGRACÃO SUPABASE */
+        function initSafeFlowForm() {
+            var STORE = 'safe_avaliacoes_reacao';
+            var ESCALA = ['Abaixo do que eu esperava', 'Como eu esperava', 'Melhor do que eu esperava'];
+
+            var FACE = '<circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01';
+            var ICON = {
+                sad: FACE + 'M8.5 16c1-1.3 2.2-2 3.5-2s2.5.7 3.5 2"/>',
+                neutral: FACE + 'M9 15h6"/>',
+                happy: FACE + 'M8.5 14c1 1.3 2.2 2 3.5 2s2.5-.7 3.5-2"/>',
+                down: '<path d="M17 14V2"/><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"/>',
+                up: '<path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/>',
+                star: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+                warn: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/>',
+                check: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+                award: '<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/>',
+                dot: '<circle cx="12" cy="12" r="9"/><circle class="in" cx="12" cy="12" r="4.5"/>'
+            };
+
+            var TREINAMENTOS = [
+                'Ambientação SPOT', 'Aperfeicoamento Prof Seg Trafego Mina FM', 'Aperfeicoamento Prof Seg Trafego Mina RC',
+                'Aperfeicoamento Seg Oper Radiodetection', 'Atividades de trabalho a quente', 'Bloqueio de Energia Oficial',
+                'Bloqueio de Energia Solicitante', 'Conducao de Veiculos 4x2', 'Conducao de Veiculos 4x4 Off Road',
+                'Gerenciamento de Materiais Perigosos', 'Inspecao Op Talude Pilha Dispos Esteril', 'Inspecao Operac Barragem Diques Ponds',
+                'Linha de Vida Movel', 'NR10 Basico FM - PRIMEIROS SOCORROS', 'NR10 Sistema Eletrico de Potencia FM',
+                'NR10 Sistema Eletrico de Potencia RC', 'NR11 Empilhadeira', 'NR11 Içamento de Carga',
+                'NR11 Ponte Rolante Talha Eletrica FM', 'NR11 Ponte Rolante Talha Eletrica RC', 'NR11 Seg Operacao Caminhao Guindauto FM',
+                'NR11 Seg Operacao Caminhao Guindauto RC', 'NR12 Seg Trabalho Maquinas Equipamentos', 'NR18 Seg Op Plataforma Elevatoria Movel',
+                'NR20 Seg Trabalho Inflamavel Comb Basico', 'NR20 Seg Trabalho Inflamavel Comb Interm', 'NR22 Com Int Prev Acid Mineracao CIPAMIN',
+                'NR22 Seg Saude Oc Mineracao', 'NR33 Seg Espaco Confinado Aut e Vigia FM', 'NR33 Seg Espaco Confinado Aut e Vigia RC',
+                'NR33 Seg Espaco Confinado Sup Entrada FM', 'NR33 Seg Espaco Confinado Sup Entrada RC', 'NR35 Trabalho em Altura',
+                'Operacao de Drone', 'Seguranca em Trabalho Lamina D Agua', 'Seguranca nos Vasos de Pressao Basico',
+                'Verificacao Comportamental VC'
+            ];
+
+            var Q = [
+                { id: 'treinamento', t: 'Qual treinamento você fez?', type: 'select', opts: TREINAMENTOS },
+                { id: 'data', t: 'Em que dia você fez o treinamento?', type: 'date' },
+                { id: 'empresa', t: 'Qual é a sua empresa?', type: 'radio', opts: ['Anglo American Minério de Ferro', 'Anglo American Investimentos', 'Terceirizada'] },
+                { id: 'instrutor', t: 'Comparado ao que você esperava, como foi o trabalho do instrutor?', type: 'radio', opts: ESCALA, ic: [['sad', 'warn'], ['neutral', 'blue'], ['happy', 'green']] },
+                { id: 'conteudo', t: 'Comparado ao que você esperava, como foi o conteúdo (o assunto ensinado)?', type: 'radio', opts: ESCALA, ic: [['down', 'warn'], ['up', 'blue'], ['star', 'gold']] },
+                { id: 'infraestrutura', t: 'Comparado ao que você esperava, como foi o local do treinamento (sala, café, lanche etc.)?', type: 'radio', opts: ESCALA, ic: [['warn', 'warn'], ['check', 'blue'], ['award', 'green']] },
+                { id: 'geral', t: 'Que nota você dá para este treinamento, no geral?', hint: 'Escolha de 1 a 5 estrelas. 1 é ruim e 5 é excelente.', type: 'stars' },
+                { id: 'comentarios', t: 'Quer deixar um comentário ou uma sugestão? Fique à vontade.', type: 'text' }
+            ];
+
+            var root = document.getElementById('avaliacao-reacao');
+            if (!root) return;
+            var ADMIN = /[?&]admin=1/.test(location.search);
+            var vals = {};
+            var REDUZ = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+            function el(tag, attrs, kids) {
+                var e = document.createElement(tag), k;
+                attrs = attrs || {};
+                for (k in attrs) {
+                    if (k === 'class') e.className = attrs[k];
+                    else if (k === 'text') e.textContent = attrs[k];
+                    else e.setAttribute(k, attrs[k]);
+                }
+                (kids || []).forEach(function (c) { e.appendChild(c); });
+                return e;
+            }
+
+            function hoje() {
+                var d = new Date();
+                return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+            }
+
+            function lista() {
+                try { return JSON.parse(localStorage.getItem(STORE) || '[]'); } catch (e) { return []; }
+            }
+            function salvarLocal(rec) {
+                try { var l = lista(); l.push(rec); localStorage.setItem(STORE, JSON.stringify(l)); return true; }
+                catch (e) { return false; }
+            }
+
+            async function enviarParaSupabase(rec) {
+                salvarLocal(rec);
+                const payload = {
+                    user_id: currentUser ? currentUser.id : null,
+                    training_name: rec.treinamento,
+                    evaluation_date: rec.data,
+                    company: rec.empresa,
+                    instructor_rating: rec.instrutor,
+                    content_rating: rec.conteudo,
+                    infrastructure_rating: rec.infraestrutura,
+                    overall_rating: parseInt(rec.geral) || 5,
+                    comments: rec.comentarios || null
+                };
+
+                const { error } = await supabaseClient.from('training_evaluations').insert([payload]);
+                if (error) {
+                    console.error('Erro ao salvar no Supabase:', error);
+                    throw error;
+                }
+            }
+
+            function exportarCSV() {
+                var cols = ['enviadoEm'].concat(Q.map(function (q) { return q.id; }));
+                var linhas = lista().map(function (r) {
+                    return cols.map(function (c) {
+                        var v = String(r[c] == null ? '' : r[c]);
+                        if (/^[=+\-@]/.test(v)) v = "'" + v;
+                        return '"' + v.replace(/"/g, '""') + '"';
+                    }).join(';');
+                });
+                var blob = new Blob(['\ufeff' + cols.join(';') + '\r\n' + linhas.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+                var a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'avaliacoes-reacao.csv';
+                a.click();
+                URL.revokeObjectURL(a.href);
+            }
+
+            function estrelas(q) {
+                var wrap = el('div', { class: 'sf-stars', role: 'radiogroup', 'aria-label': q.t }), bs = [];
+                var cap = el('p', { class: 'sf-cap', text: 'Toque para avaliar' });
+                function pintar() {
+                    bs.forEach(function (b, k) {
+                        b.classList.toggle('on', k < (vals[q.id] || 0));
+                        b.setAttribute('aria-checked', String(k + 1 === vals[q.id]));
+                    });
+                    cap.textContent = vals[q.id] ? 'Você deu ' + vals[q.id] + ' de 5 estrelas' : 'Toque para avaliar';
+                }
+                for (var i = 1; i <= 5; i++) (function (n) {
+                    var b = el('button', { type: 'button', role: 'radio', 'aria-checked': 'false', 'aria-label': n + (n === 1 ? ' estrela' : ' estrelas') });
+                    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+                    b.addEventListener('click', function () {
+                        vals[q.id] = n; pintar(); b.classList.add('pop');
+                        wrap.dispatchEvent(new Event('change', { bubbles: true }));
+                    });
+                    b.addEventListener('animationend', function () { b.classList.remove('pop'); });
+                    bs.push(b); wrap.appendChild(b);
+                })(i);
+                return el('div', { class: 'sf-box' }, [wrap, cap]);
+            }
+
+            function campo(q, n) {
+                var fs = el('fieldset', { class: 'sf-q', 'data-id': q.id });
+                fs.appendChild(el('legend', {}, [
+                    document.createTextNode(n + '. ' + q.t + ' '),
+                    el('span', { class: 'sf-req', 'aria-hidden': 'true', text: '*' })
+                ]));
+                if (q.hint) fs.appendChild(el('p', { class: 'sf-hint', text: q.hint }));
+                var c;
+                if (q.type === 'select') {
+                    c = el('select', { name: q.id, 'aria-required': 'true' },
+                        [el('option', { value: '', text: 'Escolha uma opção' })]
+                            .concat(q.opts.map(function (o) { return el('option', { value: o, text: o }); })));
+                } else if (q.type === 'date') {
+                    c = el('input', { type: 'date', name: q.id, value: hoje(), max: hoje(), 'aria-required': 'true' });
+                } else if (q.type === 'radio') {
+                    c = el('div', { class: 'sf-opts' }, q.opts.map(function (o, k) {
+                        var d = (q.ic && q.ic[k]) || ['dot', 'gray'];
+                        var lb = el('label', { class: 'sf-opt' }, [el('input', { type: 'radio', name: q.id, value: o }), el('span', { text: o })]);
+                        lb.querySelector('span').insertAdjacentHTML('beforebegin', '<svg class="sf-ico ic-' + d[1] + '" viewBox="0 0 24 24" aria-hidden="true">' + ICON[d[0]] + '</svg>');
+                        return lb;
+                    }));
+                } else if (q.type === 'stars') {
+                    c = estrelas(q);
+                } else {
+                    c = el('textarea', { name: q.id, rows: '4', placeholder: 'Escreva aqui o que você achou, o que foi bom ou o que pode melhorar…', 'aria-required': 'true' });
+                }
+                fs.appendChild(c);
+                fs.appendChild(el('p', { class: 'sf-err', hidden: '', text: 'Responda esta pergunta para continuar.' }));
+                return fs;
+            }
+
+            function valor(q, form) {
+                if (q.type === 'stars') return vals[q.id] || 0;
+                if (q.type === 'radio') {
+                    var r = form.querySelector('input[name="' + q.id + '"]:checked');
+                    return r ? r.value : '';
+                }
+                return form.elements[q.id].value.trim();
+            }
+
+            function concluido() {
+                root.innerHTML = '';
+                var nova = el('button', { type: 'button', class: 'sf-btn', text: 'Responder de novo' });
+                nova.addEventListener('click', montar);
+                var caixa = el('div', { class: 'sf-done', role: 'status' }, [
+                    el('h2', { text: 'Tudo certo! Recebemos sua avaliação.' }),
+                    el('p', { text: 'Obrigado por ajudar a melhorar os próximos treinamentos.' }),
+                    nova
+                ]);
+                caixa.insertAdjacentHTML('afterbegin', '<svg class="sf-check" viewBox="0 0 52 52" aria-hidden="true"><circle cx="26" cy="26" r="24"/><path d="M14 27l8 8 16-17"/></svg>');
+                root.appendChild(caixa);
+            }
+
+            function montar() {
+                root.innerHTML = '';
+                vals = {};
+                root.appendChild(el('header', { class: 'sf-head' }, [
+                    el('h2', { text: 'Como foi o seu treinamento?' }),
+                    el('p', { text: 'Sua opinião mostra o que foi bom e o que pode melhorar nos próximos treinamentos. Responder leva poucos minutos.' })
+                ]));
+
+                var form = el('form', { class: 'sf-body', novalidate: '' });
+                var status = el('p', { class: 'sf-status', role: 'alert' });
+                var btn = el('button', { type: 'submit', class: 'sf-btn', text: 'Enviar avaliação' });
+                var txt = el('p'), fill = el('span');
+                var barra = el('div', { class: 'sf-bar', role: 'progressbar', 'aria-label': 'Progresso das respostas', 'aria-valuemin': '0', 'aria-valuemax': String(Q.length) }, [fill]);
+                function progresso() {
+                    var n = Q.filter(function (q) { return valor(q, form); }).length;
+                    txt.textContent = 'Você respondeu ' + n + ' de ' + Q.length + ' perguntas.';
+                    fill.style.width = (n / Q.length * 100) + '%';
+                    barra.setAttribute('aria-valuenow', String(n));
+                }
+
+                form.appendChild(el('div', { class: 'sf-prog' }, [txt, barra]));
+                form.appendChild(el('p', { class: 'sf-note', text: 'Este formulário não pede seu nome nem e-mail.' }));
+                form.appendChild(el('p', { class: 'sf-note' }, [el('span', { class: 'sf-req', 'aria-hidden': 'true', text: '* ' }), document.createTextNode('Resposta obrigatória')]));
+                Q.forEach(function (q, i) { form.appendChild(campo(q, i + 1)); });
+                progresso();
+                form.appendChild(status);
+                form.appendChild(btn);
+
+                function limpar(ev) {
+                    var fs = ev.target.closest && ev.target.closest('.sf-q');
+                    if (fs) { fs.classList.remove('bad'); fs.querySelector('.sf-err').hidden = true; }
+                    if (ev.target.type === 'radio') form.querySelectorAll('input[name="' + ev.target.name + '"]').forEach(function (i) { i.parentNode.classList.toggle('sel', i.checked); });
+                    status.textContent = '';
+                    progresso();
+                }
+                form.addEventListener('input', limpar);
+                form.addEventListener('change', limpar);
+
+                form.addEventListener('submit', function (ev) {
+                    ev.preventDefault();
+                    var rec = { id: Date.now().toString(36), enviadoEm: new Date().toISOString() }, primeiro = null;
+                    Q.forEach(function (q) {
+                        var v = valor(q, form), fs = form.querySelector('[data-id="' + q.id + '"]'), falta = !v;
+                        rec[q.id] = v;
+                        fs.classList.toggle('bad', falta);
+                        fs.querySelector('.sf-err').hidden = !falta;
+                        if (falta && !primeiro) primeiro = fs;
+                    });
+                    if (primeiro) {
+                        primeiro.scrollIntoView({ block: 'center' });
+                        status.textContent = 'Falta responder algumas perguntas. Elas estão marcadas em vermelho.';
+                        return;
+                    }
+                    btn.disabled = true; btn.textContent = 'Enviando…';
+                    enviarParaSupabase(rec).then(function () {
+                        if (REDUZ) return concluido();
+                        form.classList.add('sf-out');
+                        setTimeout(concluido, 250);
+                    }, function () {
+                        btn.disabled = false; btn.textContent = 'Enviar avaliação';
+                        status.textContent = 'Não conseguimos enviar para a nuvem. Tente novamente.';
+                    });
+                });
+
+                root.appendChild(form);
+                if (!REDUZ && 'IntersectionObserver' in window) {
+                    root.classList.add('sf-anim');
+                    var io = new IntersectionObserver(function (es) {
+                        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('sf-in'); io.unobserve(e.target); } });
+                    }, { threshold: 0.15 });
+                    form.querySelectorAll('.sf-q').forEach(function (f) { io.observe(f); });
+                }
+
+                if (ADMIN) {
+                    var ex = el('button', { type: 'button', class: 'sf-link', text: 'Baixar respostas deste aparelho (planilha CSV)' });
+                    ex.addEventListener('click', exportarCSV);
+                    root.appendChild(ex);
+                }
+            }
+
+            montar();
         }
     </script>
 </body>
